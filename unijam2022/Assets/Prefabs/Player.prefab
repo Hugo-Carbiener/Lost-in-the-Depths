@@ -385,6 +385,7 @@ MonoBehaviour:
   speed: 10
   jumpHeight: 3
   gravityScale: 1.5
+  isGrounded: 0
   line: {fileID: 5919545417442637049}
 --- !u!114 &4462038896432603938
 MonoBehaviour:
