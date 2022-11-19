@@ -5,14 +5,19 @@ using UnityEngine;
 public class RockManager : MonoBehaviour
 {
     [SerializeField] private float lifetime = 2f;
+    [SerializeField] private ResourcesType resourceType;
 
     void HitByRay()
     {
-        lifetime -= Time.deltaTime;
-        if (lifetime <= 0)
+        if (resourceType != ResourcesType.Unbreakable)
         {
-            gameObject.SetActive(false);
-            lifetime = 0;
+            lifetime -= Time.deltaTime;
+            if (lifetime <= 0)
+            {
+                gameObject.SetActive(false);
+                PlayerManager._instance.AddToResourcesInventory(resourceType);
+                lifetime = 0;
+            }
         }
     }
 }

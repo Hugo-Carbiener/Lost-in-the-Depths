@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 642675356074620899}
   - component: {fileID: 1407300952731829443}
   - component: {fileID: 5592819486063021399}
+  - component: {fileID: 905349143238460797}
   - component: {fileID: 482635472480412691}
   m_Layer: 0
   m_Name: Player
@@ -249,6 +250,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
+--- !u!114 &905349143238460797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562947153685160370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fb9b2090cc659541b1031cdce5432cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &482635472480412691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,9 +278,6 @@ MonoBehaviour:
   jumpHeight: 3
   gravityScale: 5
   line: {fileID: 5919545417442637049}
-  laserRotationSpeed: 10
-  laserRotation: {x: 0, y: 0, z: 0}
-  forwardVector: {x: 0, y: 0, z: 0}
 --- !u!1 &698190100838565462
 GameObject:
   m_ObjectHideFlags: 0
