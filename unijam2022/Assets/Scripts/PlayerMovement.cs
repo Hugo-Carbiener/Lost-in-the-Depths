@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 3.5f;
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
+    private int facingDirection = 1;
     private float jumpForce;
 
     private void Start()
@@ -25,6 +26,14 @@ public class PlayerMovement : MonoBehaviour
     {
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        if (Input.GetAxis("Horizontal") > 0)
+        {
+            facingDirection = 1;
+        }
+        if (Input.GetAxis("Horizontal") < 0)
+        {
+            facingDirection = -1;
+        }
         transform.Translate(speed * Time.deltaTime * movement);
 
         // Jump
@@ -36,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         // Laser
         if (Input.GetKey(KeyCode.E))
         {
-            if (Physics.Raycast(transform.position, Vector3.right, out RaycastHit hit))
+            if (Physics.Raycast(transform.position, Vector3.right * facingDirection, out RaycastHit hit))
             {
                 hit.transform.SendMessage("HitByRay");
             }
