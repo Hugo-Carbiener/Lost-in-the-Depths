@@ -18,8 +18,15 @@ public class TilemapGeneration : MonoBehaviour
      * -1 is for grass tiles
      *  0 is for emptiness
      *  1,2,3,4 are for base tiles
+     *  11,12,13,14 are for ores
      */
     private int[,] tilemapArray;
+
+    [Header("Ore variables")]
+    [SerializeField] private int meanVeinSize;
+    [SerializeField, Range(0, 1)] private float oreDensity;
+    [SerializeField] int OffsetFromSurface;
+    [SerializeField] int oreApparitionRangeOutOfLayer;
 
     [Header("Tiles prefabs")]
     [SerializeField] private List<GameObject> baseTiles;
@@ -33,11 +40,18 @@ public class TilemapGeneration : MonoBehaviour
     {
         placedRockList = new GameObject[mapWidth, mapHeight];
         rockDictionary = new Dictionary<int, GameObject>();
+       
+        // add rocks in dictionnary
         for (int rockIndex = 0; rockIndex < baseTiles.Count; rockIndex++)
         {
             rockDictionary.Add(rockIndex + 1, baseTiles[rockIndex]);
         }
-        // add an occurence of the grass tile
+        // add ores in dictionnary
+        for (int oreIndex = 0; oreIndex< oreTiles.Count; oreIndex++ )
+        {
+            rockDictionary.Add(oreIndex + 11, oreTiles[oreIndex]);
+        }
+        // add grass in dictionnary
         rockDictionary.Add(-1, grassTile);
 
         // initialize array
@@ -61,6 +75,7 @@ public class TilemapGeneration : MonoBehaviour
         RemoveRock(8, 0);
         RemoveRock(9, 0);
         GenerateGrass();
+        GenerateOres();
         
     }
 
@@ -69,6 +84,7 @@ public class TilemapGeneration : MonoBehaviour
      */
     private void GenerateBaseTilemap()
     {
+        //map info
         int layerAmount = baseTiles.Count - 1;
         int layerHeight = mapHeight / layerAmount;
 
@@ -81,6 +97,9 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
+    /**
+     * Generate and paint grass
+     */
     private void GenerateGrass()
     {
         for (int x = 0; x < mapWidth; x++)
@@ -100,7 +119,6 @@ public class TilemapGeneration : MonoBehaviour
                 // dirt tile with nothing above it
                 if (y > 0 && tilemapArray[x, y] == 1 && tilemapArray[x, y - 1] == 0)
                 {
-                    print("found");
                     tilemapArray[x, y] = -1;
                     PaintRock(x, y);
                     break;
@@ -117,6 +135,34 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
+    private void GenerateOres()
+    {
+        int oreAmount = (int) (oreDensity * mapHeight * mapWidth);
+        print(oreAmount);
+        
+        //map info
+        int layerAmount = baseTiles.Count - 1;
+        int layerHeight = mapHeight / layerAmount;
+
+        for (int oreIndex= 0; oreIndex < oreAmount; oreIndex++)
+        {
+            // for each ore, calculate y position with a gaussian 
+            int oreVersion = Random.Range(0, oreTiles.Count);
+            int yPos = (int) Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
+            int xPos = Random.Range(0, mapWidth - 1);
+            
+            // ensure coordinates are within bounds
+            Vector2Int correctedCoordinates = CheckMapBounds(xPos, yPos);
+
+            // update tilemap 
+            tilemapArray[correctedCoordinates.x, correctedCoordinates.y] = oreVersion + 11;
+            PaintRock(correctedCoordinates.x, correctedCoordinates.y);
+        }
+    }
+
+    /**
+     * call paint rock on the whole tilemap
+     */
     private void PaintTilemap()
     {
         for (int y = 0; y < mapHeight; y++)
@@ -161,5 +207,30 @@ public class TilemapGeneration : MonoBehaviour
     private GameObject? GetPlacedRock(int x, int y)
     {
         return placedRockList[x, y];
+    }
+
+    private Vector2Int CheckMapBounds(int x, int y)
+    {
+        int xRes = x;
+        int yRes = y;
+
+        if (x < 0)
+        {
+            xRes = 0;
+        }
+        if (x > mapWidth - 1)
+        {
+            xRes = mapWidth - 1;
+        }
+        if (y < 0)
+        {
+            yRes = 0;
+        }
+        if (y > mapHeight - 1)
+        {
+            yRes = mapHeight - 1;
+        }
+
+        return new Vector2Int(xRes, yRes);
     }
 }
