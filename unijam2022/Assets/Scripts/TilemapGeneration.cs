@@ -10,6 +10,9 @@ public class TilemapGeneration : MonoBehaviour
 
     [Header("Components")]
     [SerializeField] private Grid grid;
+    [SerializeField] private Transform blocContainer;
+    [SerializeField] private Transform backgroundBlocContainer;
+    [SerializeField] private Transform foWContainer;
 
     [Header("Map variables")]
     [SerializeField] private int mapWidth;
@@ -38,6 +41,9 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] private GameObject grassTile;
     GameObject[,] placedRockArray;
     Dictionary<int, GameObject> rockDictionary;
+
+    [Header("Background variables")]
+    [SerializeField] private int depthOffset;
 
     [Header("FogOfWar prefabs")]
     [SerializeField] private GameObject FogOfWarTile;
@@ -95,13 +101,15 @@ public class TilemapGeneration : MonoBehaviour
     {
         GenerateBaseTilemap();
         PaintTilemap();
+        GenerateBackground();
+        GenerateOres();
+
         RemoveRock(5, 0);
         RemoveRock(6, 0);
         RemoveRock(7, 0);
         RemoveRock(8, 0);
         RemoveRock(9, 0);
         GenerateGrass();
-        GenerateOres();
 
         GenerateFogOfWar();
     }
@@ -118,6 +126,23 @@ public class TilemapGeneration : MonoBehaviour
                 tilemapArray[x, y] = (y / layerHeight) + 1;
             }
         }
+    }
+
+    /**
+     * Draw a copy of the basic tilemap behind as background
+     */
+    private void GenerateBackground()
+    {
+        for (int y = 0; y < mapHeight; y++)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                print("add a bg tile");
+                GameObject backgroundToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, backgroundBlocContainer);
+                backgroundToPlace.SetActive(true);
+            }
+        }
+        backgroundBlocContainer.transform.position += Vector3.forward * depthOffset;
     }
 
     /**
@@ -267,7 +292,7 @@ public class TilemapGeneration : MonoBehaviour
         // if there is no fog where there should be, add one
         if (shouldBeCovered && fogOfWarArray[x, y] == null)
         {
-            fogOfWarArray[x, y] = Instantiate(FogOfWarTile, grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
+            fogOfWarArray[x, y] = Instantiate(FogOfWarTile, grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, foWContainer);
         }
 
         // if there is fog were there shouldn't remove it
@@ -321,7 +346,7 @@ public class TilemapGeneration : MonoBehaviour
         // we instantiate a block, store its coordinates in RockManager for later use and set it active
         if (value != 0)
         {
-            GameObject rockToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
+            GameObject rockToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
             rockToPlace.GetComponent<RockManager>().SetCoordinates(new Vector2Int(x, y));
             rockToPlace.SetActive(true);
             placedRockArray[x, y] = rockToPlace;

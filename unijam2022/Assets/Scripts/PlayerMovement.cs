@@ -85,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
                 if (Physics.Raycast(transform.position, forwardVector, out RaycastHit hit, Mathf.Infinity, layerMask))
                 {
                     line.SetPosition(1, hit.point - transform.position);
-                    hit.transform.root.SendMessage("HitByRay");
+                    hit.transform.parent.SendMessage("HitByRay");
                 }
                 else
                 {
