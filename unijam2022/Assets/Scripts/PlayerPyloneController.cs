@@ -13,6 +13,7 @@ public class PlayerPyloneController : MonoBehaviour
     private float closeDistance, mediumDistance, farDistance;
 
     private bool isInPlacementMode;
+    private bool pyloneIsConnected;
     private GameObject new_pylone;
 
     private void Start()
@@ -36,7 +37,8 @@ public class PlayerPyloneController : MonoBehaviour
             if ((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= oxygenNetwork.GetLastPylone().GetComponent<OxygenPyloneController>().maxPyloneDistance)
             {
                 Debug.Log("PLACEMENT : connected");
-                if((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= closeDistance)
+                pyloneIsConnected = true;
+                if ((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= closeDistance)
                 {
                     new_pylone.GetComponent<MeshRenderer>().material.color = Color.red;
                 }
@@ -53,6 +55,7 @@ public class PlayerPyloneController : MonoBehaviour
             {
                 Debug.Log("PLACEMENT : NOT connected");
                 new_pylone.GetComponent<MeshRenderer>().material.color = Color.black;
+                pyloneIsConnected = false;
             }
             if (Input.GetKeyUp(KeyCode.Mouse0))
             {
@@ -78,9 +81,21 @@ public class PlayerPyloneController : MonoBehaviour
      */
     private void PlacePylone()
     {
-        oxygenNetwork.AddNewPylone(new_pylone);
-        new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
-        new_pylone.transform.parent = null;
-        isInPlacementMode = false;
+        if (pyloneIsConnected) 
+        {
+            oxygenNetwork.AddNewPylone(new_pylone);
+            new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
+            new_pylone.transform.parent = null;
+            isInPlacementMode = false;
+            new_pylone.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
+        else //if the pylone is not connected to the network, it will be placed and inactive
+        {
+            new_pylone.GetComponent<MeshRenderer>().material.color = Color.black;
+            new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
+            new_pylone.transform.parent = null;
+            isInPlacementMode = false;
+        }
+        
     }
 }
