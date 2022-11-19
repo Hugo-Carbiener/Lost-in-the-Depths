@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
+    [SerializeField] private GameObject mesh;
+    private Animator animator;
 
     [SerializeField] private float speed = 3.5f;
 
@@ -17,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        animator = mesh.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
         jumpForce = Mathf.Sqrt(jumpHeight * -2 * Physics.gravity.y);
     }
@@ -30,17 +33,33 @@ public class PlayerMovement : MonoBehaviour
     {
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        if(Input.GetAxis("Horizontal") != 0)
+        {
+            animator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            animator.SetBool("IsRunning", false);
+        }
         transform.Translate(speed * Time.deltaTime * movement);
 
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {
+            if (!animator.GetBool("IsJumping"))
+            {
+                animator.SetBool("IsJumping", true);
+            }
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
 
         // Laser
         if (Input.GetMouseButton(0) && Time.timeScale == 1)
         {
+            if (!animator.GetBool("IsShooting"))
+            {
+                animator.SetBool("IsShooting", true);
+            }
             forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
             forwardVector.z = 0;
             int minableLayerIndex = LayerMask.NameToLayer("Minable");
@@ -61,7 +80,24 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            animator.SetBool("IsShooting", false);
             line.SetPosition(1, new Vector3(0, 0, 0));
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (rb.velocity.y < 0)
+        {
+            if (!animator.GetBool("IsFalling"))
+            {
+                animator.SetBool("IsJumping", false);
+                animator.SetBool("IsFalling", true);
+            }
+        }
+        else if(rb.velocity.y >= 0)
+        {
+            animator.SetBool("IsFalling", false);
+        }     
     }
 }
