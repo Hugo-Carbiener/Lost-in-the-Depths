@@ -78,7 +78,16 @@ public class PlayerMovement : MonoBehaviour
             }            
             if (!laserSound.isPlaying) laserSound.Play();
             forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
-            forwardVector.z = 0;
+            if (forwardVector.x < 0)
+            {
+                if (isFacingRight) mesh.transform.Rotate(0, 180, 0);
+                isFacingRight = false;
+            }
+            else if (forwardVector.x > 0)
+            {
+                if (!isFacingRight) mesh.transform.Rotate(0, 180, 0);
+                isFacingRight = true;
+            }
             int minableLayerIndex = LayerMask.NameToLayer("Minable");
             if (minableLayerIndex != -1)
             {
