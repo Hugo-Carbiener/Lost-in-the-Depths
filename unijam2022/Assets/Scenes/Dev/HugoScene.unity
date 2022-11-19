@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -681,7 +681,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 321548159464895868, guid: f27ad25d498b23847ba8e8dc102e142a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7
+      value: -3.51
       objectReference: {fileID: 0}
     - target: {fileID: 321548159464895868, guid: f27ad25d498b23847ba8e8dc102e142a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1009,6 +1009,10 @@ PrefabInstance:
       value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 8487954428704682429, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8487954428704682429, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
@@ -1233,6 +1237,18 @@ PrefabInstance:
       propertyPath: grid
       value: 
       objectReference: {fileID: 1972270365}
+    - target: {fileID: 1180310724328934036, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
+      propertyPath: depthOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180310724328934036, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
+      propertyPath: maxEntranceDepth
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1180310724328934036, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
+      propertyPath: OffsetFromSurface
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1180310724328934037, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
       propertyPath: m_Name
       value: TilemapGenerator
@@ -1280,6 +1296,10 @@ PrefabInstance:
     - target: {fileID: 1180310724328934039, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6444111773010273990, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}

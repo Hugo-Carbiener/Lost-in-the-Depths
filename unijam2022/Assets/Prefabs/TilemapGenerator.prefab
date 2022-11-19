@@ -67,8 +67,9 @@ MonoBehaviour:
   - {fileID: 5862150834925794803, guid: b4190ad5b72965b4384bfab7fc5c5a23, type: 3}
   - {fileID: 5862150834925794803, guid: e5d0ce1834385944daf7d1e58c765a9d, type: 3}
   grassTile: {fileID: 5862150834925794803, guid: 2d633e7252adc484ebf0d0c8af3131d2, type: 3}
-  depthOffset: 0
+  depthOffset: 1
   FogOfWarTile: {fileID: 5862150834925794803, guid: e44cc4d08437a38448dd72f9d4dacf1f, type: 3}
+  maxEntranceDepth: 0
 --- !u!1 &6444111773010273990
 GameObject:
   m_ObjectHideFlags: 0

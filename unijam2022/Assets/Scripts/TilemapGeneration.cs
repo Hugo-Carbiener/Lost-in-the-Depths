@@ -50,6 +50,9 @@ public class TilemapGeneration : MonoBehaviour
     GameObject[,] fogOfWarArray;
     List<Vector2Int> range;
 
+    [Header("Landscaping")]
+    [SerializeField] private int maxEntranceDepth;
+
     private void Awake()
     {
         // singleton
@@ -101,14 +104,11 @@ public class TilemapGeneration : MonoBehaviour
     {
         GenerateBaseTilemap();
         PaintTilemap();
+
         GenerateBackground();
         GenerateOres();
 
-        RemoveRock(5, 0);
-        RemoveRock(6, 0);
-        RemoveRock(7, 0);
-        RemoveRock(8, 0);
-        RemoveRock(9, 0);
+        GenerateEntrance();
         GenerateGrass();
 
         GenerateFogOfWar();
@@ -145,6 +145,19 @@ public class TilemapGeneration : MonoBehaviour
         backgroundBlocContainer.transform.position += Vector3.forward * depthOffset;
     }
 
+    private void GenerateEntrance()
+    {
+        for(int i = 0; i < mapWidth / 2; i++)
+        {
+            int depth = (i * maxEntranceDepth) / (mapWidth / 2);   
+            for(int y = 0; y < depth; y++)
+            {
+                RemoveRock(i, y);
+                RemoveRock(mapWidth - i, y);
+            }
+        }
+    }
+
     /**
      * Generate and paint grass
      */
@@ -159,7 +172,6 @@ public class TilemapGeneration : MonoBehaviour
                 if (y == 0 && tilemapArray[x, y] != 0)
                 {
                     tilemapArray[x, y] = -1;
-
                     PaintRock(x, y);
                     break;
                 }
@@ -266,13 +278,18 @@ public class TilemapGeneration : MonoBehaviour
     /**
      * Update the fog of war by checking the tile around position with different tiles
      */
-    private void UpdateFogOfWarAt(int x, int y)
+    private void UpdateFogOfWarAt(int x, int y, bool isInInit = true)
     {
         Vector2Int coordinates = CheckMapBounds(x, y);
         x = coordinates.x;
         y = coordinates.y;
 
         bool shouldBeCovered = true;
+
+        if (isInInit)
+        {
+            range = Utils.directNeihbors;
+        }
 
         // check if the tile has an empty tile nearby 
         foreach (Vector2Int direction in range)
@@ -326,7 +343,7 @@ public class TilemapGeneration : MonoBehaviour
         foreach (Vector2Int direction in range)
         {
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
-            UpdateFogOfWarAt(targetPos.x, targetPos.y);
+            UpdateFogOfWarAt(targetPos.x, targetPos.y, false);
         }
     }
 
