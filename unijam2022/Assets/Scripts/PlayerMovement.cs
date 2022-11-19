@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private float jumpForce;
 
     [SerializeField] private LineRenderer line;
-    public Vector3 forwardVector;
+    private Vector3 forwardVector;
 
     private void Start()
     {
