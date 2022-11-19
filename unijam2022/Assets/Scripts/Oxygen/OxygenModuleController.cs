@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /**
  *  Component of the Player GameObject that will handle its oxygen consumption
@@ -30,6 +31,7 @@ public class OxygenModuleController : MonoBehaviour
         if (curOxygen <= 0)
         {
             curOxygen = 0;
+            OxygenDeath();
             //Debug.Log("ALERT : NO OXYGEN REMAINING");
         }
         StartCoroutine(ConsumeOxygen());
@@ -51,5 +53,13 @@ public class OxygenModuleController : MonoBehaviour
         {
             StartCoroutine(AddOxygen(rate));
         }
+    }
+
+    /**
+    *   Death of the player
+    */
+    private void OxygenDeath()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
