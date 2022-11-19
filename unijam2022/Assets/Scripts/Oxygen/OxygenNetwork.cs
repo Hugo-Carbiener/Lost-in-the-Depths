@@ -18,7 +18,7 @@ public class OxygenNetwork : MonoBehaviour
 
     [Header("Oxygen data")]
     [SerializeField] private float pumpOxygenRate;
-    private float curOxygenRate;
+    [HideInInspector] public float curOxygenRate;
 
     private void Start()
     {
@@ -44,6 +44,7 @@ public class OxygenNetwork : MonoBehaviour
                 Debug.Log("PLAYER LEFT CUR PYLONE");
                 curPylone.GetComponent<OxygenPyloneController>().isActivePylone = false;
                 curPylone =null;
+                curOxygenRate = 0;
             }
         }
         else //the player has left all pylones' reach, so we test to see if he's in range of one
