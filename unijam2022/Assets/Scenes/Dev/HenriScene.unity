@@ -1134,6 +1134,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8487954428510718884, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8487954428510718886, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
