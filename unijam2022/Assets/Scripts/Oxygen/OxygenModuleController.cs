@@ -16,23 +16,23 @@ public class OxygenModuleController : MonoBehaviour
     {
         curOxygen = maxOxygen;
         isRecharging = false;
-        StartCoroutine(ConsumeOxygen(consumptionRate));
+        StartCoroutine(ConsumeOxygen());
     }
 
     /**
      *  Loop that consumes oxygen
      */
-    private IEnumerator ConsumeOxygen(float rate)
+    private IEnumerator ConsumeOxygen()
     {
-        yield return new WaitForSeconds(rate);
-        curOxygen--;
+        yield return new WaitForSeconds(1);
+        curOxygen-=consumptionRate;
         Debug.Log("Current oxygen level : " + curOxygen);
         if (curOxygen <= 0)
         {
             curOxygen = 0;
             Debug.Log("ALERT : NO OXYGEN REMAINING");
         }
-        StartCoroutine(ConsumeOxygen(rate));
+        StartCoroutine(ConsumeOxygen());
     }
 
     /**
@@ -41,8 +41,8 @@ public class OxygenModuleController : MonoBehaviour
      */
     public IEnumerator AddOxygen(float rate)
     {
-        yield return new WaitForSeconds(rate);
-        curOxygen += 2; //the recharge goes faster than the downsize as to increase by 1 increment per tick of the coroutines
+        yield return new WaitForSeconds(1);
+        curOxygen += rate; //the recharge goes faster than the downsize as to increase by 1 increment per tick of the coroutines
         if (curOxygen >= maxOxygen)
         {
             curOxygen = maxOxygen;
