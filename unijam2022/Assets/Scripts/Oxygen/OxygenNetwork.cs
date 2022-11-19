@@ -119,6 +119,5 @@ public class OxygenNetwork : MonoBehaviour
             pylonesNetworkDict[pylonesNetworkDict.Count - 1].GetComponent<OxygenPyloneController>().nextPylone = pylone;
             pylonesNetworkDict.Add(pylonesNetworkDict.Count,pylone);
         }
-        print(pylonesNetworkDict.Count);
     }
 }

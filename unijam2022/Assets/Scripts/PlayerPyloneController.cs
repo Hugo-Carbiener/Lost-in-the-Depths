@@ -24,23 +24,11 @@ public class PlayerPyloneController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isInPlacementMode) //if the player is in normal mode, he will enter placement mode by pressing Mouse0
+        if (Input.GetKeyDown(KeyCode.E) && !isInPlacementMode) //if the player is in normal mode, he will enter placement mode by pressing Mouse0
         {
             isInPlacementMode = true;
             StartCoroutine(PlacePylone());
         }
-    }
-
-    /**
-     *  Function that will begin the placement mode
-     */
-    private void StartPlacementPylone()
-    {
-        isInPlacementMode=true;
-        new_pylone = Instantiate(oxygenPylone);
-        new_pylone.transform.parent = gameObject.transform;
-        new_pylone.transform.localPosition = new Vector3(0, 1.5f, 0);
-        
     }
 
     /**
