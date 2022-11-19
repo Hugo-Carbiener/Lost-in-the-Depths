@@ -452,6 +452,7 @@ MonoBehaviour:
   massScale: 1
   jointMinDistance: 0
   jointMaxDistance: 0
+  grapplingHook: {fileID: 4796297501259691592, guid: d36ed90d65facc54087055e42ab00b65, type: 3}
 --- !u!120 &6915948033969014394
 LineRenderer:
   m_ObjectHideFlags: 0

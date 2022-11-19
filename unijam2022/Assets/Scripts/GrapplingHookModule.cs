@@ -14,6 +14,8 @@ public class GrapplingHookModule : MonoBehaviour
     [SerializeField] private float maxDistance;
     private SpringJoint joint;
     [SerializeField] private float spring, damper, massScale, jointMinDistance, jointMaxDistance;
+    [SerializeField] private GameObject grapplingHook;
+    private GameObject grappling;
 
     private void Update()
     {
@@ -46,15 +48,16 @@ public class GrapplingHookModule : MonoBehaviour
             joint.connectedAnchor = grapplePoint;
 
             float distanceFromPoint = Vector3.Distance(gameObject.transform.position,grapplePoint);
-            
-
-            joint.maxDistance = distanceFromPoint * 0.8f;
+            joint.maxDistance = distanceFromPoint * jointMaxDistance;
             joint.minDistance = distanceFromPoint * jointMinDistance;
-
             joint.spring = spring;
             joint.damper = damper;
             joint.massScale = massScale;
 
+            grappling = Instantiate(grapplingHook);
+            grappling.transform.parent = null;
+            grappling.transform.position=grapplePoint;
+            grappling.transform.right = (-transform.position+grapplePoint).normalized;
             GetComponent<Rigidbody>().AddForce(forwardVector.normalized*10f, ForceMode.Impulse);
         }
     }
@@ -73,6 +76,10 @@ public class GrapplingHookModule : MonoBehaviour
     {
         Debug.Log("Stop grapple");
         Destroy(joint);
+        if(grappling != null)
+        {
+            Destroy(grappling);
+        }
         line.positionCount = 0;
     }
 }

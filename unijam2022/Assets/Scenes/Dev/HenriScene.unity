@@ -830,11 +830,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 562947153685160370, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
   m_PrefabInstance: {fileID: 1757953037}
   m_PrefabAsset: {fileID: 0}
---- !u!120 &1291970049 stripped
-LineRenderer:
-  m_CorrespondingSourceObject: {fileID: 6915948033969014394, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
-  m_PrefabInstance: {fileID: 1757953037}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1757953037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -906,10 +901,6 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 80
       objectReference: {fileID: 0}
-    - target: {fileID: 7075452754570754689, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
-      propertyPath: line
-      value: 
-      objectReference: {fileID: 1291970049}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
 --- !u!1 &1905588130 stripped
