@@ -110,6 +110,14 @@ public class OxygenNetwork : MonoBehaviour
         return pylonesNetworkDict[pylonesNetworkDict.Count-1];
     }
 
+    /**
+     *  Function that returns the current active pylone
+     */
+    public GameObject GetCurPylone()
+    {
+        return curPylone;
+    }
+
     public void AddNewPylone(GameObject pylone)
     {
         if (pylone.GetComponent<OxygenPyloneController>())
