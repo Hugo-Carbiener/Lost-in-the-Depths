@@ -39,18 +39,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Laser
-        if (Input.GetKey(KeyCode.E))
+        if (Input.GetKey(KeyCode.E) || Input.GetMouseButton(0))
         {
-            forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, 0, Screen.height / 2);
+            forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
             forwardVector.z = 0;
-            if (Physics.Raycast(transform.position, forwardVector, out RaycastHit hit))
+            int minableLayerIndex = LayerMask.NameToLayer("Minable");
+            if (minableLayerIndex != -1)
             {
-                line.SetPosition(1, hit.point - transform.position);
-                hit.transform.SendMessage("HitByRay");
-            }
-            else
-            {
-                line.SetPosition(1, forwardVector);
+                int layerMask = (1 << minableLayerIndex);
+
+                if (Physics.Raycast(transform.position, forwardVector, out RaycastHit hit, Mathf.Infinity, layerMask))
+                {
+                    line.SetPosition(1, hit.point - transform.position);
+                    hit.transform.root.SendMessage("HitByRay");
+                }
+                else
+                {
+                    line.SetPosition(1, forwardVector);
+                }
             }
         }
         else

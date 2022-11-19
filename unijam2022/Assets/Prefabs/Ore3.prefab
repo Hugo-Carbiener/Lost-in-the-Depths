@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3354646310746277971}
   - component: {fileID: 4285727921546621596}
   - component: {fileID: 2439396487111309206}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 5699009311394388174}
   - component: {fileID: 2900919595756517602}
   - component: {fileID: 6012639234528281871}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 3006219007617415154}
   - component: {fileID: 5406734021014966938}
   - component: {fileID: 4985380642167697847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 2317448369322702729}
   - component: {fileID: 7513712087175681307}
   - component: {fileID: 1527433505317585022}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2443039550444325936}
-  m_Layer: 0
+  - component: {fileID: 414681924316930238}
+  m_Layer: 6
   m_Name: Ore3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,3 +424,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &414681924316930238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5862150834925794803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec44ff54ac23c64784e623a569d4a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 3.5
+  resourceType: 4

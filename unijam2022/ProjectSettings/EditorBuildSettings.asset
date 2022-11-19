@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/MVP.unity
+    guid: 5e90d59e027f1b3408f345ea000f23b6
   m_configObjects: {}
