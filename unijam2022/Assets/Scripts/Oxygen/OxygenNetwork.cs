@@ -37,11 +37,11 @@ public class OxygenNetwork : MonoBehaviour
         {
             if (curPylone.GetComponent<OxygenPyloneController>().TestPlayerConnection() && curPylone.GetComponent<OxygenPyloneController>().connectedToNetwork) //if the player is on a certain pylone, we first test if he's still on this one
             {
-                Debug.Log("PLAYER STILL IN NETWORK");
+                //Debug.Log("PLAYER STILL IN NETWORK");
             }
             else //the player has left the curPylone's range, so we will begin our search at the next frame
             {
-                Debug.Log("PLAYER LEFT CUR PYLONE");
+                //Debug.Log("PLAYER LEFT CUR PYLONE");
                 curPylone.GetComponent<OxygenPyloneController>().isActivePylone = false;
                 curPylone =null;
                 curOxygenRate = 0;
@@ -56,7 +56,7 @@ public class OxygenNetwork : MonoBehaviour
                 OxygenPyloneController controller = pyl.GetComponent<OxygenPyloneController>();
                 if (controller.TestPlayerConnection() && controller.connectedToNetwork) //if for the considered pylone the player is connected (in range) AND the pylone is connected to the network, we connect the player and setup curpylone
                 {
-                    Debug.Log("PLAYER ENTERS NETWORK");
+                    //Debug.Log("PLAYER ENTERS NETWORK");
                     curPylone = pyl;
                     controller.isActivePylone = true;
                     if(pumpOxygenRate - rateDecrease <= 0)
@@ -71,7 +71,7 @@ public class OxygenNetwork : MonoBehaviour
                     return;
                 }
             }
-            Debug.Log("NO LONGER CONNECTED TO OXYGEN NETWORK");
+            //Debug.Log("NO LONGER CONNECTED TO OXYGEN NETWORK");
             StopOxygenFlow();
             curPylone = null;
         }

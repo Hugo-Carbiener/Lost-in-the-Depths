@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class TilemapGeneration : MonoBehaviour
 {
+    public static TilemapGeneration Instance { get; private set; }
+
     [Header("Components")]
     [SerializeField] private Grid grid;
 
@@ -32,27 +34,45 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] private List<GameObject> baseTiles;
     [SerializeField] private List<GameObject> oreTiles;
     [SerializeField] private GameObject grassTile;
-    GameObject[,] placedRockList;
+    GameObject[,] placedRockArray;
     Dictionary<int, GameObject> rockDictionary;
 
+    [Header("FogOfWar prefabs")]
+    [SerializeField] private GameObject FogOfWarTile;
+    GameObject[,] fogOfWarArray;
 
     private void Awake()
     {
-        placedRockList = new GameObject[mapWidth, mapHeight];
+        // singleton
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+
+        placedRockArray = new GameObject[mapWidth, mapHeight];
+        fogOfWarArray = new GameObject[mapWidth, mapHeight];
         rockDictionary = new Dictionary<int, GameObject>();
        
         // add rocks in dictionnary
         for (int rockIndex = 0; rockIndex < baseTiles.Count; rockIndex++)
         {
             rockDictionary.Add(rockIndex + 1, baseTiles[rockIndex]);
+            baseTiles[rockIndex].SetActive(false);
         }
         // add ores in dictionnary
         for (int oreIndex = 0; oreIndex< oreTiles.Count; oreIndex++ )
         {
             rockDictionary.Add(oreIndex + 11, oreTiles[oreIndex]);
+            oreTiles[oreIndex].SetActive(false);
         }
         // add grass in dictionnary
         rockDictionary.Add(-1, grassTile);
+        grassTile.SetActive(false);
 
         // initialize array
         tilemapArray = new int[mapWidth, mapHeight];
@@ -76,7 +96,8 @@ public class TilemapGeneration : MonoBehaviour
         RemoveRock(9, 0);
         GenerateGrass();
         GenerateOres();
-        
+
+        GenerateFogOfWar();
     }
 
     /**
@@ -138,7 +159,6 @@ public class TilemapGeneration : MonoBehaviour
     private void GenerateOres()
     {
         int oreAmount = (int) (oreDensity * mapHeight * mapWidth);
-        print(oreAmount);
         
         //map info
         int layerAmount = baseTiles.Count - 1;
@@ -165,7 +185,6 @@ public class TilemapGeneration : MonoBehaviour
 
     private void GenerateOreVein(int x, int y, int oreAmount, int oreVersion)
     {
-        List<Vector2Int> directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
         List<Vector2Int> oresPlaced = new List<Vector2Int>();
 
         // place first ore bloc
@@ -178,7 +197,7 @@ public class TilemapGeneration : MonoBehaviour
             int orePosRd = Random.Range(0, oresPlaced.Count);
             int directionRd = Random.Range(0, 4);
 
-            Vector2Int targetPos = oresPlaced[orePosRd] + directions[directionRd];
+            Vector2Int targetPos = oresPlaced[orePosRd] + Utils.directions[directionRd];
             if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0))
             {
                 tilemapArray[targetPos.x, targetPos.y] = oreVersion + 11;
@@ -207,6 +226,62 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
+    private void GenerateFogOfWar()
+    {
+        for (int y = 0; y < mapHeight; y++)
+        {
+            for (int x = 0; x < mapWidth; x++)
+            {
+                UpdateFogOfWar(x, y);
+            }
+        }
+    }
+
+    private void UpdateFogOfWar(int x, int y)
+    {
+        Vector2Int coordinates = CheckMapBounds(x, y);
+        x = coordinates.x;
+        y = coordinates.y;
+        
+        bool shouldBeCovered = true;
+
+        // check if the tile has an empty tile nearby 
+        foreach (Vector2Int direction in Utils.directions) { 
+            Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
+            try
+            {
+                if (tilemapArray[targetPos.x, targetPos.y] == 0)
+                {
+                    shouldBeCovered = false;
+                    break;
+                }
+            }
+            catch (System.IndexOutOfRangeException ex) { }
+        }
+
+        // if there is no fog where there should be, add one
+        if (shouldBeCovered && fogOfWarArray[x,y] == null)
+        {
+            fogOfWarArray[x, y] = Instantiate(FogOfWarTile, grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
+        }
+
+        // if there is fog were there shouldn't remove it
+        if (!shouldBeCovered && fogOfWarArray[x, y] != null)
+        {
+            Destroy(fogOfWarArray[x, y]);
+            fogOfWarArray[x, y] = null;
+        }
+    }
+
+    private void UpdateForOfWarAround(int x, int y)
+    {
+        print("Update fow");
+        foreach (Vector2Int direction in Utils.directions) {
+            Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
+            UpdateFogOfWar(targetPos.x, targetPos.y);
+        }
+    }
+
     /**
      * destroy the current rock if there is one, instantiate the correct one
      */
@@ -220,26 +295,30 @@ public class TilemapGeneration : MonoBehaviour
             Destroy(currentlyPlacedRock);
         }
 
+        // we instantiate a block, store its coordinates in RockManager for later use and set it active
         if (value != 0)
         {
-            placedRockList[x, y] = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
+            GameObject rockToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
+            rockToPlace.GetComponent<RockManager>().SetCoordinates(new Vector2Int(x, y));
+            rockToPlace.SetActive(true);
+            placedRockArray[x, y] = rockToPlace;
         }
     }
 
     /**
      * Modify array value and calls for an update on the block
      */
-    private void RemoveRock(int x, int y)
+    public void RemoveRock(int x, int y)
     {
         tilemapArray[x, y] = 0;
-        // update rock
         PaintRock(x, y);
+        UpdateForOfWarAround(x, y);
     }
 
     // block prefab getter
     private GameObject? GetPlacedRock(int x, int y)
     {
-        return placedRockList[x, y];
+        return placedRockArray[x, y];
     }
 
     private Vector2Int CheckMapBounds(int x, int y)
