@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject mesh;
     private Animator animator;
     private AudioSource laserSound;
+    [SerializeField] private AudioSource walkingGrassSound;
+    [SerializeField] private AudioSource walkingRockSound;
 
     [SerializeField] private float speed = 3.5f;
     private bool isFacingRight = true;
@@ -122,6 +124,22 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = true;
+            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Grass"))
+            {
+                if (!walkingGrassSound.isPlaying) walkingGrassSound.Play();
+            }
+            else
+            {
+                walkingGrassSound.Stop();
+            }
+            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Rock"))
+            {
+                if (!walkingRockSound.isPlaying) walkingRockSound.Play();
+            }
+            else
+            {
+                walkingRockSound.Stop();
+            }
         }
     }
 
