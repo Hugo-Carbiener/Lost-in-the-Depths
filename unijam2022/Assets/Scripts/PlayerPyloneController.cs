@@ -10,10 +10,8 @@ public class PlayerPyloneController : MonoBehaviour
 {
     private OxygenNetwork oxygenNetwork;
     [SerializeField] private GameObject oxygenPylone;
-    private float closeDistance, mediumDistance, farDistance;
 
     private bool isInPlacementMode;
-    private bool pyloneIsConnected;
     private GameObject new_pylone;
 
     private void Start()
@@ -26,7 +24,7 @@ public class PlayerPyloneController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInPlacementMode) //if the player is in normal mode, he will enter placement mode by pressing Mouse0
         {
-            if (oxygenNetwork.GetCurPylone())
+            if (oxygenNetwork.GetCurPylone()) //if the player is not in range, he cannot place an oxygen pylone
             {
                 isInPlacementMode = true;
                 StartCoroutine(PlacePylone());
