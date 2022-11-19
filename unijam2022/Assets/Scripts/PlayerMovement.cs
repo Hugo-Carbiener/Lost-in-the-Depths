@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 3.5f;
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
+    [SerializeField] private LineRenderer line;
     private int facingDirection = 1;
     private float jumpForce;
 
@@ -47,8 +48,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, Vector3.right * facingDirection, out RaycastHit hit))
             {
+                line.SetPosition(1, hit.point - transform.position);
                 hit.transform.SendMessage("HitByRay");
             }
+        }
+        else
+        {
+            line.SetPosition(1, new Vector3(0, 0, 0));
         }
     }
 }
