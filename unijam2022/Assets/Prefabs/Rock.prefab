@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 321548159464895866}
   - component: {fileID: 321548159464895865}
   - component: {fileID: 321548159464895869}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,3 +111,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 2
+  resourceType: 0
