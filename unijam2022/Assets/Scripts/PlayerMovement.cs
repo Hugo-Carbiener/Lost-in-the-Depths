@@ -5,12 +5,15 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
+
     [SerializeField] private float speed = 3.5f;
+
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
-    [SerializeField] private LineRenderer line;
-    private int facingDirection = 1;
     private float jumpForce;
+
+    [SerializeField] private LineRenderer line;
+    public Vector3 forwardVector;
 
     private void Start()
     {
@@ -27,14 +30,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
-        if (Input.GetAxis("Horizontal") > 0)
-        {
-            facingDirection = 1;
-        }
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            facingDirection = -1;
-        }
         transform.Translate(speed * Time.deltaTime * movement);
 
         // Jump
@@ -46,10 +41,16 @@ public class PlayerMovement : MonoBehaviour
         // Laser
         if (Input.GetKey(KeyCode.E))
         {
-            if (Physics.Raycast(transform.position, Vector3.right * facingDirection, out RaycastHit hit))
+            forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, 0, Screen.height / 2);
+            forwardVector.z = 0;
+            if (Physics.Raycast(transform.position, forwardVector, out RaycastHit hit))
             {
                 line.SetPosition(1, hit.point - transform.position);
                 hit.transform.SendMessage("HitByRay");
+            }
+            else
+            {
+                line.SetPosition(1, forwardVector);
             }
         }
         else
