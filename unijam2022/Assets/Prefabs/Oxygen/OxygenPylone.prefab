@@ -115,9 +115,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   maxDistance: 10
+  maxPyloneDistance: 20
+  isActivePylone: 0
   prevPylone: {fileID: 0}
   nextPylone: {fileID: 0}
-  networkConnection: {fileID: 1156694806134107598}
+  networkConnection: {fileID: 0}
+  connectedToNetwork: 0
 --- !u!120 &1156694805791111066
 LineRenderer:
   m_ObjectHideFlags: 0
