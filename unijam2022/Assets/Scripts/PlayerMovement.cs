@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
     private float jumpForce;
+    public bool isGrounded;
 
     [SerializeField] private LineRenderer line;
     private Vector3 forwardVector;
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(speed * Time.deltaTime * movement);
 
         // Jump
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) && isGrounded)
         {
             if (!animator.GetBool("IsJumping"))
             {
@@ -114,5 +115,21 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("IsFalling", false);
         }     
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 }
