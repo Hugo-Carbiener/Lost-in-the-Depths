@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject mesh;
     private Animator animator;
     private AudioSource laserSound;
+    [SerializeField] private AudioSource walkingGrassSound;
+    [SerializeField] private AudioSource walkingRockSound;
 
     [SerializeField] private float speed = 3.5f;
     private bool isFacingRight = true;
@@ -15,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
     private float jumpForce;
-    public bool isGrounded;
+    private bool isGrounded = true;
 
     [SerializeField] private LineRenderer line;
     private Vector3 forwardVector;
@@ -119,15 +121,31 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.layer == 6)
+        if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = true;
+            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Grass"))
+            {
+                if (!walkingGrassSound.isPlaying) walkingGrassSound.Play();
+            }
+            else
+            {
+                walkingGrassSound.Stop();
+            }
+            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Rock"))
+            {
+                if (!walkingRockSound.isPlaying) walkingRockSound.Play();
+            }
+            else
+            {
+                walkingRockSound.Stop();
+            }
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.layer==6)
+        if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = false;
         }
