@@ -55,13 +55,13 @@ public class TilemapGeneration : MonoBehaviour
     {
         GenerateBaseTilemap();
         PaintTilemap();
-        print(GetPlacedRock(5, 10));
-        Destroy(GetPlacedRock(5, 10));
-        Destroy(GetPlacedRock(7, 10));
-        Destroy(GetPlacedRock(9, 10));
-        Destroy(GetPlacedRock(5, 15));
-        Destroy(GetPlacedRock(5, 20));
-        Destroy(GetPlacedRock(5, 25));
+        RemoveRock(5, 0);
+        RemoveRock(6, 0);
+        RemoveRock(7, 0);
+        RemoveRock(8, 0);
+        RemoveRock(9, 0);
+        GenerateGrass();
+        
     }
 
     /**
@@ -81,18 +81,41 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
-    /*private void GenerateGrass()
+    private void GenerateGrass()
     {
         for (int x = 0; x < mapWidth; x++)
         {
             int y = 0;
             while (true)
             {
-                if (y == 0 && GetPlacedRock(x, y) != null || )
-                break
+                // dirt tile on the highest level
+                if (y == 0 && tilemapArray[x,y] != 0)
+                {
+                    tilemapArray[x, y] = -1;
+
+                    PaintRock(x, y);
+                    break;
+                }
+
+                // dirt tile with nothing above it
+                if (y > 0 && tilemapArray[x, y] == 1 && tilemapArray[x, y - 1] == 0)
+                {
+                    print("found");
+                    tilemapArray[x, y] = -1;
+                    PaintRock(x, y);
+                    break;
+                }
+
+                // reached to far deep to have dirt
+                if (tilemapArray[x, y] > 0)
+                {
+                    break;
+                }
+
+                y++;
             }
         }
-    }*/
+    }
 
     private void PaintTilemap()
     {
@@ -100,16 +123,41 @@ public class TilemapGeneration : MonoBehaviour
         {
             for (int x = 0; x < mapWidth; x++)
             {
-                int value = tilemapArray[x, y];
-                
-                if (value != 0)
-                {
-                    placedRockList[x, y] = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
-                }
+                PaintRock(x, y);
             }
         }
     }
 
+    /**
+     * destroy the current rock if there is one, instantiate the correct one
+     */
+    private void PaintRock(int x, int y)
+    {
+        int value = tilemapArray[x, y];
+
+        GameObject currentlyPlacedRock = GetPlacedRock(x, y);
+        if (currentlyPlacedRock != null)
+        {
+            Destroy(currentlyPlacedRock);
+        }
+
+        if (value != 0)
+        {
+            placedRockList[x, y] = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
+        }
+    }
+
+    /**
+     * Modify array value and calls for an update on the block
+     */
+    private void RemoveRock(int x, int y)
+    {
+        tilemapArray[x, y] = 0;
+        // update rock
+        PaintRock(x, y);
+    }
+
+    // block prefab getter
     private GameObject? GetPlacedRock(int x, int y)
     {
         return placedRockList[x, y];
