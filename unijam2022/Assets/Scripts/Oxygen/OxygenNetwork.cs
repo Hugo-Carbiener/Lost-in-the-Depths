@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ using UnityEngine;
  */
 public class OxygenNetwork : MonoBehaviour
 {
+    private Dictionary<int, GameObject> pylonesNetworkDict;
     [SerializeField] private GameObject[] pylonesNetwork;
     private GameObject curPylone;
 
@@ -29,6 +31,11 @@ public class OxygenNetwork : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         oxygenController = player.GetComponent<OxygenModuleController>();
+        pylonesNetworkDict = new Dictionary<int, GameObject>();
+        for(int i=0; i<pylonesNetwork.Length;i++)
+        {
+            pylonesNetworkDict.Add(i, pylonesNetwork[i]);
+        }
     }
 
     private void Update()
@@ -50,16 +57,16 @@ public class OxygenNetwork : MonoBehaviour
         else //the player has left all pylones' reach, so we test to see if he's in range of one
         {
             int rateDecrease=0;
-            foreach (var pyl in pylonesNetwork)
+            foreach (KeyValuePair<int, GameObject> pyl in pylonesNetworkDict)
             {
                 rateDecrease++;
-                OxygenPyloneController controller = pyl.GetComponent<OxygenPyloneController>();
+                OxygenPyloneController controller = pyl.Value.GetComponent<OxygenPyloneController>();
                 if (controller.TestPlayerConnection() && controller.connectedToNetwork) //if for the considered pylone the player is connected (in range) AND the pylone is connected to the network, we connect the player and setup curpylone
                 {
                     Debug.Log("PLAYER ENTERS NETWORK");
-                    curPylone = pyl;
+                    curPylone = pyl.Value;
                     controller.isActivePylone = true;
-                    if(pumpOxygenRate - rateDecrease <= 0)
+                    if(pumpOxygenRate - rateDecrease <= 0) //We change the cur oxygenRate depending on the concerned pylone
                     {
                         curOxygenRate = 0;
                     }
@@ -93,5 +100,42 @@ public class OxygenNetwork : MonoBehaviour
     {
         oxygenController.isRecharging = true;
         StartCoroutine(oxygenController.AddOxygen(curOxygenRate));
+    }
+
+    /**
+     *  Function that returns the last pylone of the list
+     */
+    public GameObject GetLastPylone()
+    {
+        return pylonesNetworkDict[pylonesNetworkDict.Count-1];
+    }
+
+    public void AddNewPylone(GameObject pylone)
+    {
+        if (pylone.GetComponent<OxygenPyloneController>())
+        {
+            OxygenPyloneController controller = pylone.GetComponent<OxygenPyloneController>();
+            controller.prevPylone = pylonesNetworkDict[pylonesNetworkDict.Count-1];
+            pylonesNetworkDict[pylonesNetworkDict.Count - 1].GetComponent<OxygenPyloneController>().nextPylone = pylone;
+            pylonesNetworkDict.Add(pylonesNetworkDict.Count,pylone);
+        }
+        print(pylonesNetworkDict.Count);
+        foreach(var pyl in pylonesNetworkDict) //since we're adding a new pylone to the dict, we're making all the pylones check their predecessors and update their links if need be
+        {
+            OxygenPyloneController controller = pyl.Value.GetComponent<OxygenPyloneController>();
+            if (controller.prevPylone != null)
+            {
+                if ((controller.prevPylone.transform.position - transform.position).magnitude <= controller.maxPyloneDistance && controller.prevPylone.GetComponent<OxygenPyloneController>().connectedToNetwork)
+                {
+                    controller.connectedToNetwork = true;
+                    controller.prevPylone.GetComponent<OxygenPyloneController>().ConnectToPylone(gameObject);
+                }
+                else
+                {
+                    controller.connectedToNetwork = false;
+                    controller.prevPylone.GetComponent<OxygenPyloneController>().DisconnectPylone();
+                }
+            }
+        }
     }
 }
