@@ -14,8 +14,12 @@ public class PlayerPyloneController : MonoBehaviour
     private bool isInPlacementMode;
     private GameObject new_pylone;
 
+    [SerializeField] private GameObject mesh;
+    private Animator animator;
+
     private void Start()
     {
+        animator = mesh.GetComponent<Animator>();
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
         Assert.IsNotNull(oxygenPylone);
     }
@@ -37,12 +41,16 @@ public class PlayerPyloneController : MonoBehaviour
      */
     private IEnumerator PlacePylone()
     {
+        animator.SetBool("IsKneeling", true);
+        GetComponent<PlayerMovement>().enabled = false;
         new_pylone = Instantiate(oxygenPylone);
         new_pylone.transform.parent = gameObject.transform;
         oxygenNetwork.AddNewPylone(new_pylone);
         new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
         new_pylone.transform.parent = null;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(2.51f);
+        GetComponent<PlayerMovement>().enabled = true;
+        animator.SetBool("IsKneeling", false);
         isInPlacementMode = false;
     }
 }

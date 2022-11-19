@@ -46,13 +46,20 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {
+            //if (!animator.GetBool("IsJumping"))
+            //{
+            //    animator.SetBool("IsJumping", true);
+            //}
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
 
         // Laser
         if (Input.GetMouseButton(0) && Time.timeScale == 1)
         {
-            animator.SetBool("IsShooting", true);
+            if (!animator.GetBool("IsShooting"))
+            {
+                animator.SetBool("IsShooting", true);
+            }
             forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
             forwardVector.z = 0;
             int minableLayerIndex = LayerMask.NameToLayer("Minable");
@@ -76,5 +83,20 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("IsShooting", false);
             line.SetPosition(1, new Vector3(0, 0, 0));
         }
+    }
+
+    private void LateUpdate()
+    {
+        if (rb.velocity.y < 0)
+        {
+            if (!animator.GetBool("IsFalling"))
+            {
+                animator.SetBool("IsFalling", true);
+            }
+        }
+        else if(rb.velocity.y >= 0)
+        {
+            animator.SetBool("IsFalling", false);
+        }       
     }
 }
