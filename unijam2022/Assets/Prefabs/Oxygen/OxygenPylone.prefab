@@ -119,7 +119,7 @@ MonoBehaviour:
   isActivePylone: 0
   prevPylone: {fileID: 0}
   nextPylone: {fileID: 0}
-  networkConnection: {fileID: 0}
+  networkConnection: {fileID: 1156694806134107598}
   connectedToNetwork: 0
 --- !u!120 &1156694805791111066
 LineRenderer:
