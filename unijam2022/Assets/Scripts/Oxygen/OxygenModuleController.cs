@@ -7,8 +7,8 @@ using UnityEngine;
  */
 public class OxygenModuleController : MonoBehaviour
 {
-    [SerializeField] private float maxOxygen;
-    private float curOxygen;
+    public float maxOxygen;
+    [HideInInspector] public float curOxygen;
     public float consumptionRate;
     public bool isRecharging;//boolean put at true if player connected to oxygen system (hence recharging)
 
