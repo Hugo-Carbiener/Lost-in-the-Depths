@@ -6,15 +6,16 @@ public class SoundManager : MonoBehaviour
 {
     [SerializeField] private AudioSource natureSource;
     [SerializeField] private AudioSource depthSource;
+    [SerializeField] private float depthTransition = -4f;
 
     private void Update()
     {
-        if (PlayerManager._instance.gameObject.transform.position.y < -4f)
+        if (PlayerManager._instance.gameObject.transform.position.y < depthTransition)
         {
             natureSource.volume -= Time.deltaTime * 0.1f;
             depthSource.volume += Time.deltaTime * 0.1f;
         } 
-        else if (PlayerManager._instance.gameObject.transform.position.y > -4f)
+        else if (PlayerManager._instance.gameObject.transform.position.y > depthTransition)
         {
             depthSource.volume -= Time.deltaTime * 0.1f;
             natureSource.volume += Time.deltaTime * 0.1f;
