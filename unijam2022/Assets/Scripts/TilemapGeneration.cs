@@ -23,6 +23,8 @@ public class TilemapGeneration : MonoBehaviour
      *  11,12,13,14 are for ores
      */
     private int[,] tilemapArray;
+    int layerAmount;
+    int layerHeight;
 
     [Header("Ore variables")]
     [SerializeField] private int averageVeinSize;
@@ -40,6 +42,7 @@ public class TilemapGeneration : MonoBehaviour
     [Header("FogOfWar prefabs")]
     [SerializeField] private GameObject FogOfWarTile;
     GameObject[,] fogOfWarArray;
+    List<Vector2Int> range;
 
     private void Awake()
     {
@@ -83,6 +86,9 @@ public class TilemapGeneration : MonoBehaviour
                 tilemapArray[x, y] = 0;
             }
         }
+
+        layerAmount = baseTiles.Count;
+        layerHeight = mapHeight / layerAmount;
     }
 
     private void Start()
@@ -105,10 +111,6 @@ public class TilemapGeneration : MonoBehaviour
      */
     private void GenerateBaseTilemap()
     {
-        //map info
-        int layerAmount = baseTiles.Count - 1;
-        int layerHeight = mapHeight / layerAmount;
-
         for (int y = 0; y < mapHeight; y++)
         {
             for (int x = 0; x < mapWidth; x++)
@@ -159,11 +161,7 @@ public class TilemapGeneration : MonoBehaviour
     private void GenerateOres()
     {
         int oreAmount = (int) (oreDensity * mapHeight * mapWidth);
-        
-        //map info
-        int layerAmount = baseTiles.Count - 1;
-        int layerHeight = mapHeight / layerAmount;
-
+       
         for (int oreIndex= 0; oreIndex < oreAmount;)
         {
             // for each ore, calculate y position with a gaussian 
@@ -197,7 +195,7 @@ public class TilemapGeneration : MonoBehaviour
             int orePosRd = Random.Range(0, oresPlaced.Count);
             int directionRd = Random.Range(0, 4);
 
-            Vector2Int targetPos = oresPlaced[orePosRd] + Utils.directions[directionRd];
+            Vector2Int targetPos = oresPlaced[orePosRd] + Utils.directNeihbors[directionRd];
             if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0))
             {
                 tilemapArray[targetPos.x, targetPos.y] = oreVersion + 11;
@@ -226,18 +224,25 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
+
+    /**
+     * fills the map with fow
+     */
     private void GenerateFogOfWar()
     {
         for (int y = 0; y < mapHeight; y++)
         {
             for (int x = 0; x < mapWidth; x++)
             {
-                UpdateFogOfWar(x, y);
+                UpdateFogOfWarAt(x, y);
             }
         }
     }
 
-    private void UpdateFogOfWar(int x, int y)
+    /**
+     * Update the fog of war by checking the tile around position with different tiles
+     */
+    private void UpdateFogOfWarAt(int x, int y)
     {
         Vector2Int coordinates = CheckMapBounds(x, y);
         x = coordinates.x;
@@ -246,7 +251,7 @@ public class TilemapGeneration : MonoBehaviour
         bool shouldBeCovered = true;
 
         // check if the tile has an empty tile nearby 
-        foreach (Vector2Int direction in Utils.directions) { 
+        foreach (Vector2Int direction in range) { 
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
             try
             {
@@ -273,12 +278,28 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
-    private void UpdateForOfWarAround(int x, int y)
+    // Call to update the fog of war on the 4 tiles around position
+    private void UpdateFogOfWarAround(int x, int y)
     {
-        print("Update fow");
-        foreach (Vector2Int direction in Utils.directions) {
+        if (y < layerHeight)
+        {
+            range = Utils.squaredRadius2Sphere;
+        }
+        else if (y >= layerHeight && y < 2 * layerHeight)
+        {
+            range = Utils.radius2Sphere;
+        }
+        else if (y > 2 * layerHeight && y < 3 * layerHeight)
+        {
+            range = Utils.neihbors;
+        } else
+        {
+            range = Utils.directNeihbors;
+        }
+
+        foreach (Vector2Int direction in range) {
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
-            UpdateFogOfWar(targetPos.x, targetPos.y);
+            UpdateFogOfWarAt(targetPos.x, targetPos.y);
         }
     }
 
@@ -312,7 +333,7 @@ public class TilemapGeneration : MonoBehaviour
     {
         tilemapArray[x, y] = 0;
         PaintRock(x, y);
-        UpdateForOfWarAround(x, y);
+        UpdateFogOfWarAround(x, y);
     }
 
     // block prefab getter
