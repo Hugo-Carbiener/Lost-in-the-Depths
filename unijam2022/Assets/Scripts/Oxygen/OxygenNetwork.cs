@@ -37,7 +37,7 @@ public class OxygenNetwork : MonoBehaviour
         {
             if (curPylone.GetComponent<OxygenPyloneController>().TestPlayerConnection() && curPylone.GetComponent<OxygenPyloneController>().connectedToNetwork) //if the player is on a certain pylone, we first test if he's still on this one
             {
-                Debug.Log("PLAYER STILL IN NETWORK");
+                //Debug.Log("PLAYER STILL IN NETWORK");
             }
             else //the player has left the curPylone's range, so we will begin our search at the next frame
             {

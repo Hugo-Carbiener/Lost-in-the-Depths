@@ -7,6 +7,7 @@ public class MainMenuController : MonoBehaviour
 {
     public void OnPlay()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("MVP");
     }
 
