@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Laser
-        if (Input.GetKey(KeyCode.E) || Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0))
         {
             forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
             forwardVector.z = 0;
