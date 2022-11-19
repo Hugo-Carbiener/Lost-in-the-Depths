@@ -56,7 +56,7 @@ public class PlayerPyloneController : MonoBehaviour
     private void PlacePylone()
     {
         oxygenNetwork.AddNewPylone(new_pylone);
-        new_pylone.transform.localPosition = new Vector3(0, 0, 0);
+        new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
         new_pylone.transform.parent = null;
         isInPlacementMode = false;
     }

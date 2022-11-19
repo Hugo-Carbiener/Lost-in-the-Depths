@@ -21,8 +21,8 @@ public class OxygenPyloneController : MonoBehaviour
     public bool isActivePylone;
 
     [Header("Network integration")]
-    [SerializeField] private GameObject prevPylone; //reference towards previous pylone in network
-    [SerializeField] private GameObject nextPylone; //reference towards next pylone in network
+    public GameObject prevPylone; //reference towards previous pylone in network
+    public GameObject nextPylone; //reference towards next pylone in network
     [SerializeField] private GameObject networkConnection;
     public bool connectedToNetwork;
 

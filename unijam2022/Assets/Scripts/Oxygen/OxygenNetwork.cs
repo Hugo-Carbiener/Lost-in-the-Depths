@@ -10,6 +10,7 @@ using UnityEngine;
  */
 public class OxygenNetwork : MonoBehaviour
 {
+    private Dictionary<int, GameObject> pylonesNetworkDict;
     [SerializeField] private GameObject[] pylonesNetwork;
     private GameObject curPylone;
 
@@ -30,6 +31,11 @@ public class OxygenNetwork : MonoBehaviour
             player = GameObject.FindGameObjectWithTag("Player");
         }
         oxygenController = player.GetComponent<OxygenModuleController>();
+        pylonesNetworkDict = new Dictionary<int, GameObject>();
+        for(int i=0; i<pylonesNetwork.Length;i++)
+        {
+            pylonesNetworkDict.Add(i, pylonesNetwork[i]);
+        }
     }
 
     private void Update()
@@ -51,14 +57,14 @@ public class OxygenNetwork : MonoBehaviour
         else //the player has left all pylones' reach, so we test to see if he's in range of one
         {
             int rateDecrease=0;
-            foreach (var pyl in pylonesNetwork)
+            foreach (KeyValuePair<int, GameObject> pyl in pylonesNetworkDict)
             {
                 rateDecrease++;
-                OxygenPyloneController controller = pyl.GetComponent<OxygenPyloneController>();
+                OxygenPyloneController controller = pyl.Value.GetComponent<OxygenPyloneController>();
                 if (controller.TestPlayerConnection() && controller.connectedToNetwork) //if for the considered pylone the player is connected (in range) AND the pylone is connected to the network, we connect the player and setup curpylone
                 {
                     Debug.Log("PLAYER ENTERS NETWORK");
-                    curPylone = pyl;
+                    curPylone = pyl.Value;
                     controller.isActivePylone = true;
                     if(pumpOxygenRate - rateDecrease <= 0) //We change the cur oxygenRate depending on the concerned pylone
                     {
@@ -101,14 +107,18 @@ public class OxygenNetwork : MonoBehaviour
      */
     public GameObject GetLastPylone()
     {
-        return pylonesNetwork[pylonesNetwork.Length-1];
+        return pylonesNetworkDict[pylonesNetworkDict.Count-1];
     }
 
     public void AddNewPylone(GameObject pylone)
     {
         if (pylone.GetComponent<OxygenPyloneController>())
         {
-            pylonesNetwork.Append(pylone);
+            OxygenPyloneController controller = pylone.GetComponent<OxygenPyloneController>();
+            controller.prevPylone = pylonesNetworkDict[pylonesNetworkDict.Count-1];
+            pylonesNetworkDict[pylonesNetworkDict.Count - 1].GetComponent<OxygenPyloneController>().nextPylone = pylone;
+            pylonesNetworkDict.Add(pylonesNetworkDict.Count,pylone);
         }
+        print(pylonesNetworkDict.Count);
     }
 }
