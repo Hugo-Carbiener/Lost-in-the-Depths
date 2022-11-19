@@ -26,11 +26,11 @@ public class OxygenModuleController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         curOxygen-=consumptionRate;
-        Debug.Log("Current oxygen level : " + curOxygen);
+        //Debug.Log("Current oxygen level : " + curOxygen);
         if (curOxygen <= 0)
         {
             curOxygen = 0;
-            Debug.Log("ALERT : NO OXYGEN REMAINING");
+            //Debug.Log("ALERT : NO OXYGEN REMAINING");
         }
         StartCoroutine(ConsumeOxygen());
     }

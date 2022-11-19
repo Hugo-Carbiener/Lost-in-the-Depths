@@ -48,7 +48,7 @@ public class OxygenNetwork : MonoBehaviour
             }
             else //the player has left the curPylone's range, so we will begin our search at the next frame
             {
-                Debug.Log("PLAYER LEFT CUR PYLONE");
+                //Debug.Log("PLAYER LEFT CUR PYLONE");
                 curPylone.GetComponent<OxygenPyloneController>().isActivePylone = false;
                 curPylone =null;
                 curOxygenRate = 0;
@@ -78,7 +78,7 @@ public class OxygenNetwork : MonoBehaviour
                     return;
                 }
             }
-            Debug.Log("NO LONGER CONNECTED TO OXYGEN NETWORK");
+            //Debug.Log("NO LONGER CONNECTED TO OXYGEN NETWORK");
             StopOxygenFlow();
             curPylone = null;
         }
