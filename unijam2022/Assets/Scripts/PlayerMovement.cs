@@ -46,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z))
         {
-            //if (!animator.GetBool("IsJumping"))
-            //{
-            //    animator.SetBool("IsJumping", true);
-            //}
+            if (!animator.GetBool("IsJumping"))
+            {
+                animator.SetBool("IsJumping", true);
+            }
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
 
@@ -91,12 +91,13 @@ public class PlayerMovement : MonoBehaviour
         {
             if (!animator.GetBool("IsFalling"))
             {
+                animator.SetBool("IsJumping", false);
                 animator.SetBool("IsFalling", true);
             }
         }
         else if(rb.velocity.y >= 0)
         {
             animator.SetBool("IsFalling", false);
-        }       
+        }     
     }
 }
