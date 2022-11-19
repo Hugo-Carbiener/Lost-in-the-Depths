@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /**
  *      Component used by the ui
@@ -20,11 +21,22 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldNumber;
     [SerializeField] private TextMeshProUGUI diamondNumber;
 
+    [SerializeField] private GameObject EscapeMenuUI;
+
     private void Start()
     {
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         oxygen = player.GetComponent<OxygenModuleController>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0;
+            EscapeMenuUI.SetActive(true);
+        }
     }
 
     private void LateUpdate()
@@ -45,5 +57,16 @@ public class UIController : MonoBehaviour
         {
             diamondNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Diamond].ToString();
         }
+    }
+
+    public void OnResume()
+    {
+        Time.timeScale = 1;
+        EscapeMenuUI.SetActive(false);
+    }
+
+    public void OnBackToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

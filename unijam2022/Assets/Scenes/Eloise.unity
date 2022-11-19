@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &212210905 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1156694806134107598, guid: d294171a71664654cafe1983e6e7db74, type: 3}
+  m_PrefabInstance: {fileID: 1730298160}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &762740304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -136,7 +141,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.379408
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
       propertyPath: m_LocalPosition.y
@@ -186,6 +191,14 @@ PrefabInstance:
       propertyPath: prevPylone
       value: 
       objectReference: {fileID: 1730298161}
+    - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
+      propertyPath: maxPyloneDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
+      propertyPath: networkConnection
+      value: 
+      objectReference: {fileID: 806675698}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d294171a71664654cafe1983e6e7db74, type: 3}
 --- !u!1 &762740305 stripped
@@ -291,6 +304,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &806675698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1156694806134107598, guid: d294171a71664654cafe1983e6e7db74, type: 3}
+  m_PrefabInstance: {fileID: 762740304}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &943131282 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 562947153685160370, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
@@ -397,9 +415,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 943131282}
     - target: {fileID: 289553152166715785, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
-      propertyPath: prevPylone
+      propertyPath: nextPylone
       value: 
       objectReference: {fileID: 1730298161}
+    - target: {fileID: 289553152166715785, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
+      propertyPath: prevPylone
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 289553152166715786, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -777,7 +799,7 @@ PrefabInstance:
     - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
       propertyPath: networkConnection
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 212210905}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d294171a71664654cafe1983e6e7db74, type: 3}
 --- !u!1 &1730298161 stripped
@@ -842,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 321548159464895869, guid: f27ad25d498b23847ba8e8dc102e142a, type: 3}
       propertyPath: resourceType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f27ad25d498b23847ba8e8dc102e142a, type: 3}
@@ -903,7 +925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 321548159464895869, guid: f27ad25d498b23847ba8e8dc102e142a, type: 3}
       propertyPath: resourceType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f27ad25d498b23847ba8e8dc102e142a, type: 3}
