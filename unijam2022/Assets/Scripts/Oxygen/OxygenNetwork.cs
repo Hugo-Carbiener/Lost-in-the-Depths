@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /**
@@ -7,5 +8,73 @@ using UnityEngine;
  */
 public class OxygenNetwork : MonoBehaviour
 {
+    [SerializeField] private GameObject[] pylonesNetwork;
+    private GameObject curPylone;
 
+    [Header("Player data")]
+    [SerializeField] private GameObject player;
+    private OxygenModuleController oxygenController; //ref to player's oxygen module
+
+    private void Start()
+    {
+        curPylone = null;
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        oxygenController = player.GetComponent<OxygenModuleController>();
+    }
+
+    private void Update()
+    {
+        if (curPylone!=null)
+        {
+            if (curPylone.GetComponent<OxygenPyloneController>().TestPlayerConnection()) //if the player is on a certain pylone, we first test if he's still on this one
+            {
+                Debug.Log("PLAYER STILL IN NETWORK");
+            }
+            else
+            {
+                Debug.Log("PLAYER LEFT CUR PYLONE");
+                curPylone.GetComponent<OxygenPyloneController>().isActivePylone = false;
+                curPylone =null;
+            }
+        }
+        else
+        {
+            foreach (var pyl in pylonesNetwork)
+            {
+                OxygenPyloneController controller = pyl.GetComponent<OxygenPyloneController>();
+                if (controller.TestPlayerConnection())
+                {
+                    Debug.Log("PLAYER ENTERS NETWORK");
+                    curPylone = pyl;
+                    controller.isActivePylone = true;
+                    StartOxygenFlow();
+                    return;
+                }
+            }
+            Debug.Log("NO LONGER CONNECTED TO OXYGEN NETWORK");
+            StopOxygenFlow();
+            curPylone = null;
+        }
+
+    }
+
+    /**
+     *  Function stopping the oxygen flow
+     */
+    private void StopOxygenFlow()
+    {
+        oxygenController.isRecharging = false;
+    }
+
+    /**
+     *  Function starting the oxygen flow towards the player
+     */
+    private void StartOxygenFlow()
+    {
+        oxygenController.isRecharging = true;
+        StartCoroutine(oxygenController.AddOxygen(oxygenController.consumptionRate));
+    }
 }

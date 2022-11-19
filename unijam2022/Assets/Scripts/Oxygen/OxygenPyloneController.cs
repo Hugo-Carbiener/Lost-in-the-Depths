@@ -18,6 +18,7 @@ public class OxygenPyloneController : MonoBehaviour
     [SerializeField] private float maxDistance;
     private float curDistance;
     private bool isConnectedPlayer;
+    public bool isActivePylone;
 
     [Header("Network integration")]
     [SerializeField] private GameObject prevPylone; //reference towards previous pylone in network
@@ -30,6 +31,10 @@ public class OxygenPyloneController : MonoBehaviour
 
     private void Start()
     {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         oxygenController = player.GetComponent<OxygenModuleController>();
         lineRenderer = GetComponent<LineRenderer>();
         if (lineRenderer == null)
@@ -49,42 +54,34 @@ public class OxygenPyloneController : MonoBehaviour
             prevPylone.GetComponent<OxygenPyloneController>().ConnectToPylone(gameObject);
         }
 
-        //We now handle the player's detection :
-        curDistance = (player.transform.position-transform.position).magnitude;
-        Debug.Log("DISTANCE WITH PLAYER : " + curDistance);
-        if (curDistance < maxDistance)
+        if (isActivePylone) //if the pylone is currently the one holding the player, we trigger the visual line with it
         {
-            Debug.Log("CONNECTED TO OXYGEN NETWORK");
-            isConnectedPlayer = true;
             ConnectToPlayer();
-            if (!oxygenController.isRecharging)
-            {
-                StartOxygenFlow();
-            }
         }
         else
         {
-            Debug.Log("NO LONGER CONNECTED TO OXYGEN NETWORK");
-            isConnectedPlayer = false;
-            StopOxygenFlow();
+            DisconnectFromPlayer();
         }
     }
 
-    /**
-     *  Function starting the oxygen flow towards the player
-     */
-    private void StartOxygenFlow()
+    public bool TestPlayerConnection()
     {
-        oxygenController.isRecharging = true;
-        StartCoroutine(oxygenController.AddOxygen(oxygenController.consumptionRate));
+        //We now handle the player's detection :
+        curDistance = (player.transform.position - transform.position).magnitude;
+        if (curDistance < maxDistance)
+        {
+            return true;
+        }
+        return false;
     }
+
+    
 
     /**
      *  Function stopping the oxygen flow
      */
-    private void StopOxygenFlow()
+    public void DisconnectFromPlayer()
     {
-        oxygenController.isRecharging = false;
         lineRenderer.positionCount = 0;
     }
 
