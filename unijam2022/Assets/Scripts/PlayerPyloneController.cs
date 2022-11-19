@@ -17,6 +17,9 @@ public class PlayerPyloneController : MonoBehaviour
     [SerializeField] private GameObject mesh;
     private Animator animator;
 
+    [SerializeField] private AudioSource pyloneCreationSound;
+    [SerializeField] private AudioSource pyloneNotCreatedSound;
+
     private void Start()
     {
         animator = mesh.GetComponent<Animator>();
@@ -35,7 +38,7 @@ public class PlayerPyloneController : MonoBehaviour
             }
             else
             {
-                // Play sound
+                if (!pyloneNotCreatedSound.isPlaying) pyloneNotCreatedSound.Play();
             }
         }
     }
@@ -45,6 +48,7 @@ public class PlayerPyloneController : MonoBehaviour
      */
     private IEnumerator PlacePylone()
     {
+        pyloneCreationSound.Play();
         PlayerManager._instance.resourcesInventory[ResourcesType.Pylons]--;
         animator.SetBool("IsKneeling", true);
         GetComponent<PlayerMovement>().enabled = false;
