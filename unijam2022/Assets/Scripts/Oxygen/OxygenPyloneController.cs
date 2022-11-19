@@ -15,8 +15,7 @@ public class OxygenPyloneController : MonoBehaviour
     private OxygenModuleController oxygenController; //ref to player's oxygen module
 
     [Header("Distance data")]
-    [SerializeField] private float maxDistance;
-    public float maxPyloneDistance;
+    public float maxDistance;
     private float curDistance;
     public bool isActivePylone;
 
@@ -48,10 +47,10 @@ public class OxygenPyloneController : MonoBehaviour
 
     private void Update()
     {
-        //if the previous Pylone exists, we connect this pylone to it ==> SHOULD BE CALLED ONLY WHEN NETWORK CHANGES RATHER THAN EVERY FRAME
+        //if the previous Pylone exists, we connect this pylone to it
         if (prevPylone != null)
         {
-            if((prevPylone.transform.position - transform.position).magnitude <= maxPyloneDistance && prevPylone.GetComponent<OxygenPyloneController>().connectedToNetwork)
+            if ((prevPylone.transform.position - transform.position).magnitude <= maxDistance && prevPylone.GetComponent<OxygenPyloneController>().connectedToNetwork)
             {
                 connectedToNetwork = true;
                 prevPylone.GetComponent<OxygenPyloneController>().ConnectToPylone(gameObject);

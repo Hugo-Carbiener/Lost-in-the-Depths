@@ -225,76 +225,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 289553152166715511, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
   m_PrefabInstance: {fileID: 289553152220141195}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &175091251
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -9.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -3.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111057, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111067, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: m_Name
-      value: OxygenPylone2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: prevPylone
-      value: 
-      objectReference: {fileID: 1905588130}
-    - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-      propertyPath: maxPyloneDistance
-      value: 20
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d294171a71664654cafe1983e6e7db74, type: 3}
---- !u!1 &175091252 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1156694805791111067, guid: d294171a71664654cafe1983e6e7db74, type: 3}
-  m_PrefabInstance: {fileID: 175091251}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &378362115
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +388,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &787328131
 GameObject:
@@ -1051,13 +981,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1291970047}
     - target: {fileID: 289553152166715510, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
+      propertyPath: pylonesNetwork.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 289553152166715510, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: pylonesNetwork.Array.data[0]
       value: 
       objectReference: {fileID: 1905588130}
     - target: {fileID: 289553152166715510, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: pylonesNetwork.Array.data[1]
       value: 
-      objectReference: {fileID: 175091252}
+      objectReference: {fileID: 0}
     - target: {fileID: 289553152166715511, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: m_Name
       value: OxygenPump
@@ -1066,9 +1000,13 @@ PrefabInstance:
       propertyPath: nextPylone
       value: 
       objectReference: {fileID: 1905588130}
+    - target: {fileID: 289553152166715785, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
+      propertyPath: maxDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 289553152166715786, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 289553152166715786, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1174,11 +1112,15 @@ PrefabInstance:
     - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
       propertyPath: nextPylone
       value: 
-      objectReference: {fileID: 175091252}
+      objectReference: {fileID: 0}
     - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
       propertyPath: prevPylone
       value: 
       objectReference: {fileID: 131135228}
+    - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
+      propertyPath: maxDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1156694805791111069, guid: d294171a71664654cafe1983e6e7db74, type: 3}
       propertyPath: maxPyloneDistance
       value: 30
@@ -1202,7 +1144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8487954428510718886, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8487954428510718886, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
       propertyPath: m_AnchorMax.x

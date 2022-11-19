@@ -120,22 +120,5 @@ public class OxygenNetwork : MonoBehaviour
             pylonesNetworkDict.Add(pylonesNetworkDict.Count,pylone);
         }
         print(pylonesNetworkDict.Count);
-        foreach(var pyl in pylonesNetworkDict) //since we're adding a new pylone to the dict, we're making all the pylones check their predecessors and update their links if need be
-        {
-            OxygenPyloneController controller = pyl.Value.GetComponent<OxygenPyloneController>();
-            if (controller.prevPylone != null)
-            {
-                if ((controller.prevPylone.transform.position - transform.position).magnitude <= controller.maxPyloneDistance && controller.prevPylone.GetComponent<OxygenPyloneController>().connectedToNetwork)
-                {
-                    controller.connectedToNetwork = true;
-                    controller.prevPylone.GetComponent<OxygenPyloneController>().ConnectToPylone(gameObject);
-                }
-                else
-                {
-                    controller.connectedToNetwork = false;
-                    controller.prevPylone.GetComponent<OxygenPyloneController>().DisconnectPylone();
-                }
-            }
-        }
     }
 }

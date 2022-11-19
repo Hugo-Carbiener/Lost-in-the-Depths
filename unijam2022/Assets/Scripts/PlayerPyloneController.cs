@@ -20,47 +20,14 @@ public class PlayerPyloneController : MonoBehaviour
     {
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
         Assert.IsNotNull(oxygenPylone);
-        isInPlacementMode = false;
-        closeDistance = oxygenPylone.GetComponent<OxygenPyloneController>().maxPyloneDistance / 3.5f;
-        mediumDistance = oxygenPylone.GetComponent<OxygenPyloneController>().maxPyloneDistance / 2;
-        farDistance = oxygenPylone.GetComponent<OxygenPyloneController>().maxPyloneDistance / 1.5f;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && !isInPlacementMode) //if the player is in normal mode, he will enter placement mode by pressing Mouse0
         {
-            StartPlacementPylone();
-        }
-        if (isInPlacementMode) //in placement mode, we test wether the pylone is connected to the network and change its color accordingly
-        {
-            if ((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= oxygenNetwork.GetLastPylone().GetComponent<OxygenPyloneController>().maxPyloneDistance)
-            {
-                Debug.Log("PLACEMENT : connected");
-                pyloneIsConnected = true;
-                if ((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= closeDistance)
-                {
-                    new_pylone.GetComponent<MeshRenderer>().material.color = Color.red;
-                }
-                else if ((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= mediumDistance)
-                {
-                    new_pylone.GetComponent<MeshRenderer>().material.color = Color.yellow;
-                }
-                else if ((oxygenNetwork.GetLastPylone().transform.position - gameObject.transform.position).magnitude <= farDistance)
-                {
-                    new_pylone.GetComponent<MeshRenderer>().material.color = Color.blue;
-                }
-            }
-            else
-            {
-                Debug.Log("PLACEMENT : NOT connected");
-                new_pylone.GetComponent<MeshRenderer>().material.color = Color.black;
-                pyloneIsConnected = false;
-            }
-            if (Input.GetKeyUp(KeyCode.Mouse0))
-            {
-                PlacePylone();
-            }
+            isInPlacementMode = true;
+            StartCoroutine(PlacePylone());
         }
     }
 
@@ -79,23 +46,14 @@ public class PlayerPyloneController : MonoBehaviour
     /**
      * Function that will place the pylone accordingly on the ground
      */
-    private void PlacePylone()
+    private IEnumerator PlacePylone()
     {
-        if (pyloneIsConnected) 
-        {
-            oxygenNetwork.AddNewPylone(new_pylone);
-            new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
-            new_pylone.transform.parent = null;
-            isInPlacementMode = false;
-            new_pylone.GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-        else //if the pylone is not connected to the network, it will be placed and inactive
-        {
-            new_pylone.GetComponent<MeshRenderer>().material.color = Color.black;
-            new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
-            new_pylone.transform.parent = null;
-            isInPlacementMode = false;
-        }
-        
+        new_pylone = Instantiate(oxygenPylone);
+        new_pylone.transform.parent = gameObject.transform;
+        oxygenNetwork.AddNewPylone(new_pylone);
+        new_pylone.transform.localPosition = new Vector3(0, 0.7f, 1f);
+        new_pylone.transform.parent = null;
+        yield return new WaitForSeconds(0.1f);
+        isInPlacementMode = false;
     }
 }
