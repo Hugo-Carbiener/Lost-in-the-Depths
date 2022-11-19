@@ -50,6 +50,10 @@ public class TilemapGeneration : MonoBehaviour
     GameObject[,] fogOfWarArray;
     List<Vector2Int> range;
 
+    [Header("Elevator variables")]
+    [SerializeField] private int shaftDepth;
+    [SerializeField] private GameObject elevator;
+
     [Header("Landscaping")]
     [SerializeField] private int maxEntranceDepth;
 
@@ -85,6 +89,7 @@ public class TilemapGeneration : MonoBehaviour
         // add grass in dictionnary
         rockDictionary.Add(-1, grassTile);
         grassTile.SetActive(false);
+        elevator.SetActive(false);
 
         // initialize array
         tilemapArray = new int[mapWidth, mapHeight];
@@ -110,6 +115,8 @@ public class TilemapGeneration : MonoBehaviour
 
         GenerateEntrance();
         GenerateGrass();
+
+        GenerateElevator();
 
         GenerateFogOfWar();
     }
@@ -245,6 +252,24 @@ public class TilemapGeneration : MonoBehaviour
         {
             PaintRock(orePlaced.x, orePlaced.y);
         }
+    }
+
+    private void GenerateElevator()
+    {
+        // generate shaft
+        int[] xs = new int[2] { mapWidth / 2, (mapWidth / 2) + 1 };
+        foreach (int x in xs)
+        {
+            for (int y = 0; y < shaftDepth; y++)
+            {
+                RemoveRock(x, y);
+            }
+        }
+
+        Vector3 elevatorPos = (grid.CellToWorld(new Vector3Int(xs[0], -(maxEntranceDepth - 1), 0)) + grid.CellToWorld(new Vector3Int(xs[0], -(maxEntranceDepth - 1), 0))) / 2 + Vector3.right * 0.5f;
+        GameObject elev = Instantiate(elevator, elevatorPos, Quaternion.identity);
+        elev.GetComponent<ElevatorController>().SetDepth(shaftDepth - maxEntranceDepth);
+        elev.SetActive(true);
     }
 
     /**
