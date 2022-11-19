@@ -22,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LineRenderer line;
     private Vector3 forwardVector;
 
+    private GameObject lastHitBlock;
+
     private void Start()
     {
         animator = mesh.GetComponent<Animator>();
@@ -95,8 +97,13 @@ public class PlayerMovement : MonoBehaviour
 
                 if (Physics.Raycast(transform.position, forwardVector, out RaycastHit hit, Mathf.Infinity, layerMask))
                 {
+                    if(lastHitBlock && hit.transform.gameObject != lastHitBlock)
+                    {
+                        lastHitBlock.transform.parent.SendMessage("NoLongerHit");
+                    }
                     line.SetPosition(1, hit.point - transform.position);
                     hit.transform.parent.SendMessage("HitByRay");
+                    lastHitBlock = hit.transform.gameObject;
                 }
                 else
                 {
@@ -107,6 +114,10 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("IsShooting", false);
+            if (lastHitBlock)
+            {
+                lastHitBlock.transform.parent.SendMessage("NoLongerHit");
+            }
             laserSound.Stop();
             line.SetPosition(1, new Vector3(0, 0, 0));
         }

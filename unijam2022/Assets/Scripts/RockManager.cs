@@ -10,13 +10,23 @@ public class RockManager : MonoBehaviour
     [SerializeField] private ResourcesType resourceType;
     private Vector2Int coordinates;
 
+    [SerializeField] private GameObject particles;
+
     private void Awake()
     {
+        if(particles != null)
+        {
+            particles.SetActive(false);
+        }
         breakingSound = gameObject.GetComponent<AudioSource>();
     }
 
     void HitByRay()
     {
+        if (particles != null)
+        {
+            particles.SetActive(true);
+        }
         if (resourceType != ResourcesType.Unbreakable)
         {
             lifetime -= Time.deltaTime;
@@ -30,6 +40,14 @@ public class RockManager : MonoBehaviour
                 lifetime = 0;
                 TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
             }
+        }
+    }
+
+    void NoLongerHit()
+    {
+        if (particles != null)
+        {
+            particles.SetActive(false);
         }
     }
 
