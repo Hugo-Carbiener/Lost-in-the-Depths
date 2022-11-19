@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private GameObject mesh;
     private Animator animator;
+    private AudioSource laserSound;
 
     [SerializeField] private float speed = 3.5f;
 
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = mesh.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
+        laserSound = gameObject.GetComponent<AudioSource>();
         jumpForce = Mathf.Sqrt(jumpHeight * -2 * Physics.gravity.y);
     }
 
@@ -59,7 +61,8 @@ public class PlayerMovement : MonoBehaviour
             if (!animator.GetBool("IsShooting"))
             {
                 animator.SetBool("IsShooting", true);
-            }
+            }            
+            if (!laserSound.isPlaying) laserSound.Play();
             forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
             forwardVector.z = 0;
             int minableLayerIndex = LayerMask.NameToLayer("Minable");
@@ -81,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("IsShooting", false);
+            laserSound.Stop();
             line.SetPosition(1, new Vector3(0, 0, 0));
         }
     }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class RockManager : MonoBehaviour
 {
     [Header("Rock variables")]
+    [SerializeField] private AudioSource breakingSound;
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private ResourcesType resourceType;
     private Vector2Int coordinates;
@@ -18,6 +19,8 @@ public class RockManager : MonoBehaviour
             if (lifetime <= 0)
             {
                 TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
+                breakingSound.Play();
+                gameObject.SetActive(false);
                 PlayerManager._instance.AddToResourcesInventory(resourceType);
                 lifetime = 0;
             }
