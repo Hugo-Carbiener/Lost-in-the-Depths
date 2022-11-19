@@ -224,7 +224,6 @@ public class TilemapGeneration : MonoBehaviour
         }
     }
 
-
     /**
      * fills the map with fow
      */
@@ -256,7 +255,7 @@ public class TilemapGeneration : MonoBehaviour
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
             try
             {
-                if (tilemapArray[targetPos.x, targetPos.y] == 0)
+                if (tilemapArray[targetPos.x, targetPos.y] == 0 || tilemapArray[targetPos.x, targetPos.y] == -1)
                 {
                     shouldBeCovered = false;
                     break;
