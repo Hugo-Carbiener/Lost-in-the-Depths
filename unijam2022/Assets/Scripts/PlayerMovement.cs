@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private AudioSource laserSound;
 
     [SerializeField] private float speed = 3.5f;
+    private bool isFacingRight = true;
 
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
@@ -35,6 +36,16 @@ public class PlayerMovement : MonoBehaviour
     {
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
+        if(Input.GetAxis("Horizontal") < 0)
+        {
+            if (isFacingRight) mesh.transform.Rotate(0, 180, 0);
+            isFacingRight = false;
+        }
+        else if (Input.GetAxis("Horizontal") > 0)
+        {
+            if (!isFacingRight) mesh.transform.Rotate(0, 180, 0);
+            isFacingRight = true;
+        }
         if(Input.GetAxis("Horizontal") != 0)
         {
             animator.SetBool("IsRunning", true);
