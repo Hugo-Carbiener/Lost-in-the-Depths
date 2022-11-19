@@ -70,13 +70,13 @@ public class ElevatorController : MonoBehaviour
             start = topPosition;
             finish = bottomPosition;
             playerFinish = player.position + Vector3.down * depth;
-            endState = elevatorState.atTop;
+            endState = elevatorState.atBottom;
         } else // elevator state cannot be "intravel" anyways
         {
             start = bottomPosition;
             finish = topPosition;
             playerFinish = player.position + Vector3.up * depth;
-            endState = elevatorState.atBottom;
+            endState = elevatorState.atTop;
         }
 
         state = elevatorState.inTravel;

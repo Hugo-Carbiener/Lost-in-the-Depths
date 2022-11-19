@@ -39,6 +39,7 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] private List<GameObject> baseTiles;
     [SerializeField] private List<GameObject> oreTiles;
     [SerializeField] private GameObject grassTile;
+    [SerializeField] private GameObject unbreakableTile;
     GameObject[,] placedRockArray;
     Dictionary<int, GameObject> rockDictionary;
 
@@ -53,6 +54,7 @@ public class TilemapGeneration : MonoBehaviour
     [Header("Elevator variables")]
     [SerializeField] private int shaftDepth;
     [SerializeField] private GameObject elevator;
+    [SerializeField] private int dropOffAreaSize;
 
     [Header("Landscaping")]
     [SerializeField] private int maxEntranceDepth;
@@ -89,6 +91,8 @@ public class TilemapGeneration : MonoBehaviour
         // add grass in dictionnary
         rockDictionary.Add(-1, grassTile);
         grassTile.SetActive(false);
+        rockDictionary.Add(-2, unbreakableTile);
+        unbreakableTile.SetActive(false);
         elevator.SetActive(false);
 
         // initialize array
@@ -108,7 +112,6 @@ public class TilemapGeneration : MonoBehaviour
     private void Start()
     {
         GenerateBaseTilemap();
-        PaintTilemap();
 
         GenerateBackground();
         GenerateOres();
@@ -118,6 +121,7 @@ public class TilemapGeneration : MonoBehaviour
 
         GenerateElevator();
 
+        PaintTilemap();
         GenerateFogOfWar();
     }
 
@@ -179,7 +183,6 @@ public class TilemapGeneration : MonoBehaviour
                 if (y == 0 && tilemapArray[x, y] != 0)
                 {
                     tilemapArray[x, y] = -1;
-                    PaintRock(x, y);
                     break;
                 }
 
@@ -187,7 +190,6 @@ public class TilemapGeneration : MonoBehaviour
                 if (y > 0 && tilemapArray[x, y] == 1 && tilemapArray[x, y - 1] == 0)
                 {
                     tilemapArray[x, y] = -1;
-                    PaintRock(x, y);
                     break;
                 }
 
@@ -246,30 +248,62 @@ public class TilemapGeneration : MonoBehaviour
                 oresPlaced.Add(new Vector2Int(targetPos.x, targetPos.y));
             }
         }
-
-        // refresh tilemap
-        foreach (Vector2Int orePlaced in oresPlaced)
-        {
-            PaintRock(orePlaced.x, orePlaced.y);
-        }
     }
 
     private void GenerateElevator()
     {
         // generate shaft
         int[] xs = new int[2] { mapWidth / 2, (mapWidth / 2) + 1 };
-        foreach (int x in xs)
+        for (int y = 0; y < shaftDepth; y++)
         {
-            for (int y = 0; y < shaftDepth; y++)
+            foreach (int x in xs)
             {
                 RemoveRock(x, y);
             }
+
+            // unbreakable blocs in the elevator shaft
+            if (y > maxEntranceDepth && y != shaftDepth - 2 && y != shaftDepth - 3)
+            {
+                tilemapArray[xs[1] + 1, y] = -2;
+                tilemapArray[xs[0] - 1, y] = -2;
+            }
         }
+
+        tilemapArray[xs[0] - 1, shaftDepth] = -2;
+        tilemapArray[xs[0] , shaftDepth] = -2;
+        tilemapArray[xs[1] , shaftDepth] = -2;
+        tilemapArray[xs[1] + 1, shaftDepth] = -2;
+
+        CreateCavity(xs[0] - 1, shaftDepth - 2, dropOffAreaSize);
+        CreateCavity(xs[1] + 1, shaftDepth - 2, dropOffAreaSize);
 
         Vector3 elevatorPos = (grid.CellToWorld(new Vector3Int(xs[0], -(maxEntranceDepth - 1), 0)) + grid.CellToWorld(new Vector3Int(xs[0], -(maxEntranceDepth - 1), 0))) / 2 + Vector3.right * 0.5f;
         GameObject elev = Instantiate(elevator, elevatorPos, Quaternion.identity);
         elev.GetComponent<ElevatorController>().SetDepth(shaftDepth - maxEntranceDepth);
         elev.SetActive(true);
+    }
+
+    private void CreateCavity(int x, int y, int size)
+    {
+        List<Vector2Int> blocksRemoved = new List<Vector2Int>();
+
+        // place first ore bloc
+        tilemapArray[x, y] = 0;
+        blocksRemoved.Add(new Vector2Int(x, y));
+
+        // place each block of ore in the vein
+        while (blocksRemoved.Count < size)
+        {
+            int orePosRd = Random.Range(0, blocksRemoved.Count);
+            int directionRd = Random.Range(0, 4);
+
+            Vector2Int targetPos = blocksRemoved[orePosRd] + Utils.directNeihbors[directionRd];
+            if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0 || tilemapArray[targetPos.x, targetPos.y] == -2 || tilemapArray[targetPos.x, targetPos.y] == 0))
+            {
+                tilemapArray[targetPos.x, targetPos.y] = 0;
+                blocksRemoved.Add(new Vector2Int(targetPos.x, targetPos.y));
+            }
+        }
     }
 
     /**
