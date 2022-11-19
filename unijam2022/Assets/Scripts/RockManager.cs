@@ -26,10 +26,9 @@ public class RockManager : MonoBehaviour
             }
             if (lifetime <= 0)
             {
-                //TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
-                gameObject.SetActive(false);
                 PlayerManager._instance.AddToResourcesInventory(resourceType);
                 lifetime = 0;
+                TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
             }
         }
     }

@@ -60,7 +60,7 @@ public class TilemapGeneration : MonoBehaviour
         placedRockArray = new GameObject[mapWidth, mapHeight];
         fogOfWarArray = new GameObject[mapWidth, mapHeight];
         rockDictionary = new Dictionary<int, GameObject>();
-       
+
         // add rocks in dictionnary
         for (int rockIndex = 0; rockIndex < baseTiles.Count; rockIndex++)
         {
@@ -68,7 +68,7 @@ public class TilemapGeneration : MonoBehaviour
             baseTiles[rockIndex].SetActive(false);
         }
         // add ores in dictionnary
-        for (int oreIndex = 0; oreIndex< oreTiles.Count; oreIndex++ )
+        for (int oreIndex = 0; oreIndex < oreTiles.Count; oreIndex++)
         {
             rockDictionary.Add(oreIndex + 11, oreTiles[oreIndex]);
             oreTiles[oreIndex].SetActive(false);
@@ -131,7 +131,7 @@ public class TilemapGeneration : MonoBehaviour
             while (true)
             {
                 // dirt tile on the highest level
-                if (y == 0 && tilemapArray[x,y] != 0)
+                if (y == 0 && tilemapArray[x, y] != 0)
                 {
                     tilemapArray[x, y] = -1;
 
@@ -160,15 +160,15 @@ public class TilemapGeneration : MonoBehaviour
 
     private void GenerateOres()
     {
-        int oreAmount = (int) (oreDensity * mapHeight * mapWidth);
-       
-        for (int oreIndex= 0; oreIndex < oreAmount;)
+        int oreAmount = (int)(oreDensity * mapHeight * mapWidth);
+
+        for (int oreIndex = 0; oreIndex < oreAmount;)
         {
             // for each ore, calculate y position with a gaussian 
             int oreVersion = Random.Range(0, oreTiles.Count);
-            int yPos = (int) Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
+            int yPos = (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
             int xPos = Random.Range(0, mapWidth);
-            
+
             // ensure coordinates are within bounds
             Vector2Int correctedCoordinates = CheckMapBounds(xPos, yPos);
 
@@ -202,9 +202,9 @@ public class TilemapGeneration : MonoBehaviour
                 oresPlaced.Add(new Vector2Int(targetPos.x, targetPos.y));
             }
         }
-        
+
         // refresh tilemap
-        foreach(Vector2Int orePlaced in oresPlaced)
+        foreach (Vector2Int orePlaced in oresPlaced)
         {
             PaintRock(orePlaced.x, orePlaced.y);
         }
@@ -247,11 +247,12 @@ public class TilemapGeneration : MonoBehaviour
         Vector2Int coordinates = CheckMapBounds(x, y);
         x = coordinates.x;
         y = coordinates.y;
-        
+
         bool shouldBeCovered = true;
 
         // check if the tile has an empty tile nearby 
-        foreach (Vector2Int direction in range) { 
+        foreach (Vector2Int direction in range)
+        {
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
             try
             {
@@ -265,7 +266,7 @@ public class TilemapGeneration : MonoBehaviour
         }
 
         // if there is no fog where there should be, add one
-        if (shouldBeCovered && fogOfWarArray[x,y] == null)
+        if (shouldBeCovered && fogOfWarArray[x, y] == null)
         {
             fogOfWarArray[x, y] = Instantiate(FogOfWarTile, grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity);
         }
@@ -292,12 +293,14 @@ public class TilemapGeneration : MonoBehaviour
         else if (y > 2 * layerHeight && y < 3 * layerHeight)
         {
             range = Utils.neihbors;
-        } else
+        }
+        else
         {
             range = Utils.directNeihbors;
         }
 
-        foreach (Vector2Int direction in range) {
+        foreach (Vector2Int direction in range)
+        {
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
             UpdateFogOfWarAt(targetPos.x, targetPos.y);
         }
