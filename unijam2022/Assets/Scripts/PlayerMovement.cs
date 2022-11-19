@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
-    [SerializeField] private AudioSource laserSound;
+    private AudioSource laserSound;
 
     [SerializeField] private float speed = 3.5f;
 

@@ -142,5 +142,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec44ff54ac23c64784e623a569d4a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  breakingSound: {fileID: 0}
   lifetime: 3
   resourceType: 1

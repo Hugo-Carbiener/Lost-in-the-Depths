@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RockManager : MonoBehaviour
 {
+    [SerializeField] private AudioSource breakingSound;
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private ResourcesType resourceType;
 
@@ -14,6 +15,7 @@ public class RockManager : MonoBehaviour
             lifetime -= Time.deltaTime;
             if (lifetime <= 0)
             {
+                breakingSound.Play();
                 gameObject.SetActive(false);
                 PlayerManager._instance.AddToResourcesInventory(resourceType);
                 lifetime = 0;
