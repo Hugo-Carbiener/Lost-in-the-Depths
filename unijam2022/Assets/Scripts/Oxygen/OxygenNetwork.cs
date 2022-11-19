@@ -5,6 +5,7 @@ using UnityEngine;
 
 /**
  *  Component used by the Oxygen network to allow for optimisation
+ *  Placed at the pump that will act as the root of the system
  */
 public class OxygenNetwork : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class OxygenNetwork : MonoBehaviour
     {
         if (curPylone!=null)
         {
-            if (curPylone.GetComponent<OxygenPyloneController>().TestPlayerConnection()) //if the player is on a certain pylone, we first test if he's still on this one
+            if (curPylone.GetComponent<OxygenPyloneController>().TestPlayerConnection() && curPylone.GetComponent<OxygenPyloneController>().connectedToNetwork) //if the player is on a certain pylone, we first test if he's still on this one
             {
                 Debug.Log("PLAYER STILL IN NETWORK");
             }
@@ -45,7 +46,7 @@ public class OxygenNetwork : MonoBehaviour
             foreach (var pyl in pylonesNetwork)
             {
                 OxygenPyloneController controller = pyl.GetComponent<OxygenPyloneController>();
-                if (controller.TestPlayerConnection())
+                if (controller.TestPlayerConnection() && controller.connectedToNetwork)
                 {
                     Debug.Log("PLAYER ENTERS NETWORK");
                     curPylone = pyl;

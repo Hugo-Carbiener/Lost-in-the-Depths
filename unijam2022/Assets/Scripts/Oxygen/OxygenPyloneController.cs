@@ -16,14 +16,15 @@ public class OxygenPyloneController : MonoBehaviour
 
     [Header("Distance data")]
     [SerializeField] private float maxDistance;
+    [SerializeField] private float maxPyloneDistance;
     private float curDistance;
-    private bool isConnectedPlayer;
     public bool isActivePylone;
 
     [Header("Network integration")]
     [SerializeField] private GameObject prevPylone; //reference towards previous pylone in network
     [SerializeField] private GameObject nextPylone; //reference towards next pylone in network
     [SerializeField] private GameObject networkConnection;
+    public bool connectedToNetwork;
 
     [Header("Line Renderers")]
     private LineRenderer networkLineRenderer;
@@ -42,7 +43,6 @@ public class OxygenPyloneController : MonoBehaviour
             transform.AddComponent<LineRenderer>();
             lineRenderer = GetComponent<LineRenderer>();
         }
-        isConnectedPlayer = false;
         networkLineRenderer = networkConnection.GetComponent<LineRenderer>();
     }
 
@@ -51,9 +51,17 @@ public class OxygenPyloneController : MonoBehaviour
         //if the previous Pylone exists, we connect this pylone to it ==> SHOULD BE CALLED ONLY WHEN NETWORK CHANGES RATHER THAN EVERY FRAME
         if (prevPylone != null)
         {
-            prevPylone.GetComponent<OxygenPyloneController>().ConnectToPylone(gameObject);
+            if((prevPylone.transform.position - transform.position).magnitude <= maxPyloneDistance && prevPylone.GetComponent<OxygenPyloneController>().connectedToNetwork)
+            {
+                connectedToNetwork = true;
+                prevPylone.GetComponent<OxygenPyloneController>().ConnectToPylone(gameObject);
+            }
+            else
+            {
+                connectedToNetwork = false;
+                prevPylone.GetComponent<OxygenPyloneController>().DisconnectPylone();
+            }
         }
-
         if (isActivePylone) //if the pylone is currently the one holding the player, we trigger the visual line with it
         {
             ConnectToPlayer();
@@ -73,9 +81,7 @@ public class OxygenPyloneController : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    
+    } 
 
     /**
      *  Function stopping the oxygen flow
@@ -95,6 +101,11 @@ public class OxygenPyloneController : MonoBehaviour
         networkLineRenderer.SetPosition(1, connectPylone.transform.position);
     }
 
+    public void DisconnectPylone()
+    {
+        networkLineRenderer.positionCount = 0;
+    }
+
     /**
      *  Function that will visually connect to player
      */
@@ -104,5 +115,4 @@ public class OxygenPyloneController : MonoBehaviour
         lineRenderer.SetPosition(0, transform.position);
         lineRenderer.SetPosition(1, player.transform.position);
     }
-
 }
