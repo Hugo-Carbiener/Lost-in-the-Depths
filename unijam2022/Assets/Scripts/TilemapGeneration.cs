@@ -23,7 +23,7 @@ public class TilemapGeneration : MonoBehaviour
     private int[,] tilemapArray;
 
     [Header("Ore variables")]
-    [SerializeField] private int meanVeinSize;
+    [SerializeField] private int averageVeinSize;
     [SerializeField, Range(0, 1)] private float oreDensity;
     [SerializeField] int OffsetFromSurface;
     [SerializeField] int oreApparitionRangeOutOfLayer;
@@ -144,19 +144,52 @@ public class TilemapGeneration : MonoBehaviour
         int layerAmount = baseTiles.Count - 1;
         int layerHeight = mapHeight / layerAmount;
 
-        for (int oreIndex= 0; oreIndex < oreAmount; oreIndex++)
+        for (int oreIndex= 0; oreIndex < oreAmount;)
         {
             // for each ore, calculate y position with a gaussian 
             int oreVersion = Random.Range(0, oreTiles.Count);
             int yPos = (int) Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
-            int xPos = Random.Range(0, mapWidth - 1);
+            int xPos = Random.Range(0, mapWidth);
             
             // ensure coordinates are within bounds
             Vector2Int correctedCoordinates = CheckMapBounds(xPos, yPos);
 
-            // update tilemap 
-            tilemapArray[correctedCoordinates.x, correctedCoordinates.y] = oreVersion + 11;
-            PaintRock(correctedCoordinates.x, correctedCoordinates.y);
+            if (yPos >= OffsetFromSurface)
+            {
+                int veinSize = averageVeinSize + Random.Range(-averageVeinSize / 2, averageVeinSize / 2);
+                oreIndex += veinSize;
+                GenerateOreVein(correctedCoordinates.x, correctedCoordinates.y, veinSize, oreVersion);
+            }
+        }
+    }
+
+    private void GenerateOreVein(int x, int y, int oreAmount, int oreVersion)
+    {
+        List<Vector2Int> directions = new List<Vector2Int>() { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
+        List<Vector2Int> oresPlaced = new List<Vector2Int>();
+
+        // place first ore bloc
+        tilemapArray[x, y] = oreVersion + 11;
+        oresPlaced.Add(new Vector2Int(x, y));
+
+        // place each block of ore in the vein
+        while (oresPlaced.Count < oreAmount)
+        {
+            int orePosRd = Random.Range(0, oresPlaced.Count);
+            int directionRd = Random.Range(0, 4);
+
+            Vector2Int targetPos = oresPlaced[orePosRd] + directions[directionRd];
+            if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0))
+            {
+                tilemapArray[targetPos.x, targetPos.y] = oreVersion + 11;
+                oresPlaced.Add(new Vector2Int(targetPos.x, targetPos.y));
+            }
+        }
+        
+        // refresh tilemap
+        foreach(Vector2Int orePlaced in oresPlaced)
+        {
+            PaintRock(orePlaced.x, orePlaced.y);
         }
     }
 
