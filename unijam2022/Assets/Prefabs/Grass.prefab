@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2439396487111309206}
   m_Layer: 6
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 8216933328783825780}
   m_Layer: 6
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: -7927509920164531798}
   m_Layer: 6
   m_Name: Grass
-  m_TagString: Ground
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

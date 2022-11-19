@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
     private float jumpForce;
-    public bool isGrounded;
+    private bool isGrounded = true;
 
     [SerializeField] private LineRenderer line;
     private Vector3 forwardVector;
@@ -119,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = true;
         }
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = false;
         }
