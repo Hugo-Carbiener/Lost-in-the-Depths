@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
+    [SerializeField] private AudioSource laserSound;
 
     [SerializeField] private float speed = 3.5f;
 
@@ -18,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
+        laserSound = gameObject.GetComponent<AudioSource>();
         jumpForce = Mathf.Sqrt(jumpHeight * -2 * Physics.gravity.y);
     }
 
@@ -41,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
         // Laser
         if (Input.GetMouseButton(0) && Time.timeScale == 1)
         {
+            
+            if (!laserSound.isPlaying) laserSound.Play();
             forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
             forwardVector.z = 0;
             int minableLayerIndex = LayerMask.NameToLayer("Minable");
@@ -61,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            laserSound.Stop();
             line.SetPosition(1, new Vector3(0, 0, 0));
         }
     }
