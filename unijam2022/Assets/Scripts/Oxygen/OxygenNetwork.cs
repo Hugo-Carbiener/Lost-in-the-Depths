@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -59,7 +60,7 @@ public class OxygenNetwork : MonoBehaviour
                     Debug.Log("PLAYER ENTERS NETWORK");
                     curPylone = pyl;
                     controller.isActivePylone = true;
-                    if(pumpOxygenRate - rateDecrease <= 0)
+                    if(pumpOxygenRate - rateDecrease <= 0) //We change the cur oxygenRate depending on the concerned pylone
                     {
                         curOxygenRate = 0;
                     }
@@ -93,5 +94,21 @@ public class OxygenNetwork : MonoBehaviour
     {
         oxygenController.isRecharging = true;
         StartCoroutine(oxygenController.AddOxygen(curOxygenRate));
+    }
+
+    /**
+     *  Function that returns the last pylone of the list
+     */
+    public GameObject GetLastPylone()
+    {
+        return pylonesNetwork[pylonesNetwork.Length-1];
+    }
+
+    public void AddNewPylone(GameObject pylone)
+    {
+        if (pylone.GetComponent<OxygenPyloneController>())
+        {
+            pylonesNetwork.Append(pylone);
+        }
     }
 }

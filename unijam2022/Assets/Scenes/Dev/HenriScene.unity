@@ -851,6 +851,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 562947153685160370, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
   m_PrefabInstance: {fileID: 1757953037}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1291970048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291970047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64335eca34d7e82418f3dfc12b7cbf83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oxygenPylone: {fileID: 1156694805791111067, guid: d294171a71664654cafe1983e6e7db74, type: 3}
 --- !u!1001 &1757953037
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -858,6 +871,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 206128779323417910, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 482635472480412691, guid: 38c04b0de1f9e894c832f67496ac1d51, type: 3}
       propertyPath: jumpForce
       value: 7

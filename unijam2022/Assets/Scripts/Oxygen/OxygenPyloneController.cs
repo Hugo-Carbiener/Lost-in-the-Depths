@@ -16,7 +16,7 @@ public class OxygenPyloneController : MonoBehaviour
 
     [Header("Distance data")]
     [SerializeField] private float maxDistance;
-    [SerializeField] private float maxPyloneDistance;
+    public float maxPyloneDistance;
     private float curDistance;
     public bool isActivePylone;
 

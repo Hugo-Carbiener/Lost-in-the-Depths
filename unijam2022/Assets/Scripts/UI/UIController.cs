@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour
 
     private void LateUpdate()
     {
-        oxygenBar.value = oxygen.curOxygen/oxygen.maxOxygen;
-        oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s";
+        oxygenBar.value = oxygen.curOxygen/oxygen.maxOxygen; //updates the oxygenBar
+        oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s"; //uodates the oxygenRate text
     }
 }
