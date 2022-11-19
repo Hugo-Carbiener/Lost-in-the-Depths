@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: -7927509920164531798}
   m_Layer: 6
   m_Name: Grass
-  m_TagString: Ground
+  m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

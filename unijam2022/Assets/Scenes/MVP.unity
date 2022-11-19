@@ -1052,7 +1052,7 @@ PrefabInstance:
       objectReference: {fileID: 1972270365}
     - target: {fileID: 1180310724328934036, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
       propertyPath: depthOffset
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1180310724328934037, guid: d9c7c2b8195fde54fbc587d45628cde6, type: 3}
       propertyPath: m_Name
