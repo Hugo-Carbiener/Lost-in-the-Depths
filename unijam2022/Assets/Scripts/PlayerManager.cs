@@ -6,12 +6,14 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager _instance;
 
-    public Dictionary<ResourcesType, int> resourcesInventory = new();
+    public Dictionary<ResourcesType, int> resourcesInventory;
 
     private void Awake()
     {
         Debug.Assert(PlayerManager._instance == null);
         PlayerManager._instance = this;
+        resourcesInventory = new();
+        resourcesInventory.Add(ResourcesType.Pylons, 3);
     }
 
     public void AddToResourcesInventory(ResourcesType resource)
