@@ -16,6 +16,10 @@ public class UIController : MonoBehaviour
     [SerializeField] private Slider oxygenBar;
     [SerializeField] private TextMeshProUGUI oxygenRate;
 
+    [SerializeField] private TextMeshProUGUI coalNumber;
+    [SerializeField] private TextMeshProUGUI goldNumber;
+    [SerializeField] private TextMeshProUGUI diamondNumber;
+
     private void Start()
     {
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
@@ -27,5 +31,17 @@ public class UIController : MonoBehaviour
     {
         oxygenBar.value = oxygen.curOxygen/oxygen.maxOxygen;
         oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s";
+        if (PlayerManager._instance.resourcesInventory.ContainsKey(ResourcesType.Coal))
+        {
+            coalNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Coal].ToString();
+        }
+        if (PlayerManager._instance.resourcesInventory.ContainsKey(ResourcesType.Gold))
+        {
+            goldNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Gold].ToString();
+        }
+        if (PlayerManager._instance.resourcesInventory.ContainsKey(ResourcesType.Diamond))
+        {
+            diamondNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Diamond].ToString();
+        }
     }
 }

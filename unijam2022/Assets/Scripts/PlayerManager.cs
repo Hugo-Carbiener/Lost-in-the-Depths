@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager _instance;
 
-    private Dictionary<ResourcesType, int> resourcesInventory = new();
+    public Dictionary<ResourcesType, int> resourcesInventory = new();
 
     private void Awake()
     {
