@@ -25,6 +25,8 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private AudioSource audio;
 
+    [SerializeField] private Canvas deathAnimation;
+
     private void Start()
     {
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
@@ -77,5 +79,11 @@ public class UIController : MonoBehaviour
     {
         audio.Play();
         SceneManager.LoadSceneAsync("MainMenu");
+    }
+
+    public void TriggerDeath()
+    {
+        deathAnimation.gameObject.SetActive(true);
+        deathAnimation.GetComponent<Animator>().Play("Death");
     }
 }
