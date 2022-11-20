@@ -137,17 +137,17 @@ public class TilemapGeneration : MonoBehaviour
         GenerateBaseTilemap();
 
         GenerateBackground();
-        //GenerateOres();
+        GenerateOres();
 
         GenerateEntrance();
-        //GenerateGrass();
+        GenerateGrass();
 
         GenerateElevator();
-        //GenerateFinalCave();
+        GenerateFinalCave();
 
         PaintTilemap();
         
-        //GenerateBorders();   
+        GenerateBorders();   
         GenerateFogOfWar();
     }
 
