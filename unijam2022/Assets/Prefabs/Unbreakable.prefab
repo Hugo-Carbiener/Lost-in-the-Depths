@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2443039550444325936
 Transform:
   m_ObjectHideFlags: 0
@@ -146,6 +146,8 @@ MonoBehaviour:
   breakingSound: {fileID: 0}
   lifetime: 1
   resourceType: 0
+  coefficientsLaser: []
+  particles: {fileID: 0}
 --- !u!82 &4158977686110377970
 AudioSource:
   m_ObjectHideFlags: 0
