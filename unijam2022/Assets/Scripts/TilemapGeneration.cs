@@ -245,8 +245,8 @@ public class TilemapGeneration : MonoBehaviour
         for (int oreIndex = 0; oreIndex < oreAmount;)
         {
             // for each ore, calculate y position with a gaussian 
-            int oreVersion = Random.Range(0, oreTiles.Count);
-            int yPos = (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
+            int oreVersion = Random.Range(0, oreTiles.Count) + 1;
+            int yPos = layerHeight + (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
             int xPos = Random.Range(0, mapWidth);
 
             // ensure coordinates are within bounds
@@ -476,6 +476,7 @@ public class TilemapGeneration : MonoBehaviour
     private void PaintRock(int x, int y)
     {
         int value = tilemapArray[x, y];
+        print(value);
         GameObject currentlyPlacedRock = GetPlacedRock(x, y);
         if (currentlyPlacedRock != null)
         {

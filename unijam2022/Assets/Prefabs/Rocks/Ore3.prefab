@@ -54,8 +54,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   breakingSound: {fileID: 0}
   resourceType: 4
-  particles: {fileID: 963164982193091909}
-  particlesNearDeath: {fileID: 1002647661153934381}
 --- !u!114 &5512184599355944105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -500,11 +498,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a670975a36296c448da532613fe73d3, type: 3}
---- !u!1 &1002647661153934381 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7750307116674307088, guid: 4a670975a36296c448da532613fe73d3, type: 3}
-  m_PrefabInstance: {fileID: 7378165018274629693}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1002647661153934382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7750307116674307091, guid: 4a670975a36296c448da532613fe73d3, type: 3}
@@ -659,11 +652,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ce00e2ca1d45f48ad25d6563b2ed19, type: 3}
---- !u!1 &963164982193091909 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8884524890758575338, guid: 25ce00e2ca1d45f48ad25d6563b2ed19, type: 3}
-  m_PrefabInstance: {fileID: 8507850699075289519}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &963164982193091910 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8884524890758575337, guid: 25ce00e2ca1d45f48ad25d6563b2ed19, type: 3}
