@@ -9,6 +9,7 @@ public class RockManager : MonoBehaviour
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private ResourcesType resourceType;
     private Vector2Int coordinates;
+    [SerializeField] private float[] coefficientsLaser;
 
     [SerializeField] private GameObject particles;
 
@@ -29,7 +30,7 @@ public class RockManager : MonoBehaviour
         }
         if (resourceType != ResourcesType.Unbreakable)
         {
-            lifetime -= Time.deltaTime;
+            lifetime -= Time.deltaTime * coefficientsLaser[PlayerManager._instance.GetLaserLevel()];
             if (lifetime > 0 && lifetime < 0.4f)
             {
                 if (!breakingSound.isPlaying) breakingSound.Play();
@@ -38,7 +39,8 @@ public class RockManager : MonoBehaviour
             {
                 PlayerManager._instance.AddToResourcesInventory(resourceType);
                 lifetime = 0;
-                TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
+                //TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
+                gameObject.SetActive(false);
             }
         }
     }
