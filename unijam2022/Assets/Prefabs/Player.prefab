@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5036720008072743355}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &3931469082251579661
 AudioSource:
@@ -208,7 +208,6 @@ Transform:
   - {fileID: 7924355380362963551}
   - {fileID: 8301963108330668897}
   - {fileID: 1014185246874969474}
-  - {fileID: 8611723542565097661}
   - {fileID: 3227073013906618416}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -461,7 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxygenPylone: {fileID: 1156694805791111067, guid: d294171a71664654cafe1983e6e7db74, type: 3}
   mesh: {fileID: 2052555910176887835}
-  pyloneCreationSound: {fileID: 4059619690442595778}
+  pyloneCreationSound: {fileID: 0}
   pyloneNotCreatedSound: {fileID: 3931469082251579661}
 --- !u!114 &7075452754570754689
 MonoBehaviour:
@@ -772,7 +771,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 44cef7af2a40cef4daf77ed2d881d9b2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0953780e3ccf39c4abf1f0f63e67962f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -932,7 +931,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6d76683a603c8e74ca16e11d81b289e6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 720fcdb7de581b341ad939ee932f4731, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
