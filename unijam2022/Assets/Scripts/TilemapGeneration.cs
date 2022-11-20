@@ -184,7 +184,7 @@ public class TilemapGeneration : MonoBehaviour
         {
             for (int x = 0; x < mapWidth; x++)
             {
-                print("add a bg tile");
+                //print("add a bg tile");
                 GameObject backgroundToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, backgroundBlocContainer);
                 backgroundToPlace.SetActive(true);
             }

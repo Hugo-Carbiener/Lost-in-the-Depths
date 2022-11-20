@@ -81,7 +81,7 @@ public class OxygenModuleController : MonoBehaviour
         animator.SetBool("IsDying", true);
         yield return new WaitForSeconds(1);
         GameObject.FindGameObjectWithTag("UI").GetComponent<UIController>().TriggerDeath();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("MainMenu");
     }
 }
