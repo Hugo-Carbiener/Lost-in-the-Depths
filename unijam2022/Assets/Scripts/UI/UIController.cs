@@ -28,6 +28,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private AudioSource audio;
 
     [SerializeField] private Canvas deathAnimation;
+    [SerializeField] private Canvas victoryAnimation;
 
     private void Start()
     {
@@ -85,5 +86,11 @@ public class UIController : MonoBehaviour
     {
         deathAnimation.gameObject.SetActive(true);
         deathAnimation.GetComponent<Animator>().Play("Death");
+    }
+
+    public void TriggerVictory()
+    {
+        victoryAnimation.gameObject.SetActive(true);
+        victoryAnimation.GetComponent<Animator>().Play("Victory");
     }
 }
