@@ -29,7 +29,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 783834246541562578}
-  - {fileID: 907982136397706936}
   m_Father: {fileID: 651018232573859458}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
@@ -78,8 +77,6 @@ Transform:
   - {fileID: 1673074158311345825}
   - {fileID: 7309054714596770003}
   - {fileID: 7009412192770620701}
-  - {fileID: 252806070485729678}
-  - {fileID: 8115473811366522014}
   - {fileID: 1014185246874969474}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -277,7 +274,7 @@ MonoBehaviour:
   speed: 10
   jumpHeight: 3
   gravityScale: 1.5
-  line: {fileID: 5919545417442637049}
+  line: {fileID: 1334091929354094612}
 --- !u!114 &4462038896432603938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,8 +319,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxygenPylone: {fileID: 1156694805791111067, guid: d294171a71664654cafe1983e6e7db74, type: 3}
   mesh: {fileID: 2052555910176887835}
-  pyloneCreationSound: {fileID: 0}
-  pyloneNotCreatedSound: {fileID: 0}
 --- !u!114 &7075452754570754689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -912,7 +907,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5036720008072743355}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1406652873410123146
 BoxCollider:
