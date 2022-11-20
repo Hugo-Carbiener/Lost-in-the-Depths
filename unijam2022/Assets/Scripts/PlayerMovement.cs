@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private GameObject mesh;
+    [SerializeField] private GroundDetector gdDetector;
     private Animator animator;
     private AudioSource laserSound;
     [SerializeField] private AudioSource walkingGrassSound;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = mesh.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
+        gdDetector = GetComponentInChildren<GroundDetector>();
         laserSound = gameObject.GetComponent<AudioSource>();
         jumpForce = Mathf.Sqrt(jumpHeight * -2 * Physics.gravity.y);
     }
@@ -39,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        isGrounded = gdDetector.isGrounded;
+
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         if(Input.GetAxis("Horizontal") < 0)
@@ -62,12 +66,12 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(speed * Time.deltaTime * movement);
 
         // Jump
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) && isGrounded)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)) && isGrounded == true)
         {
-            if (!animator.GetBool("IsJumping"))
-            {
-                animator.SetBool("IsJumping", true);
-            }
+            //if (!animator.GetBool("IsJumping"))
+            //{
+                //animator.SetBool("IsJumping", true);
+            //}
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
         }
 
@@ -123,13 +127,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
+    // useless see below
+
+    /*private void LateUpdate()
     {
         if (rb.velocity.y < 0)
         {
             if (!animator.GetBool("IsFalling"))
             {
-                animator.SetBool("IsJumping", false);
+                //animator.SetBool("IsJumping", false);
                 animator.SetBool("IsFalling", true);
             }
         }
@@ -137,14 +143,17 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("IsFalling", false);
         }     
-    }
+    }*/
+
+    //collision check => setting up Falling State for animation + play sound
 
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
-            isGrounded = true;
-            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Grass"))
+            animator.SetBool("IsFalling", false);
+
+            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Grass") && isGrounded == true)
             {
                 if (!walkingGrassSound.isPlaying) walkingGrassSound.Play();
             }
@@ -152,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 walkingGrassSound.Stop();
             }
-            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Rock"))
+            if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Rock") && isGrounded == true)
             {
                 if (!walkingRockSound.isPlaying) walkingRockSound.Play();
             }
@@ -167,7 +176,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
-            isGrounded = false;
+            animator.SetBool("IsFalling", true);
+            walkingGrassSound.Stop();
+            walkingRockSound.Stop();
         }
     }
 }

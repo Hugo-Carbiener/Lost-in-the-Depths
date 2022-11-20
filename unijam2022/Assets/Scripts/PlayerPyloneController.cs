@@ -17,9 +17,6 @@ public class PlayerPyloneController : MonoBehaviour
     [SerializeField] private GameObject mesh;
     private Animator animator;
 
-    [SerializeField] private AudioSource pyloneCreationSound;
-    [SerializeField] private AudioSource pyloneNotCreatedSound;
-
     private void Start()
     {
         animator = mesh.GetComponent<Animator>();
@@ -31,14 +28,10 @@ public class PlayerPyloneController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInPlacementMode) //if the player is in normal mode, he will enter placement mode by pressing Mouse0
         {
-            if (oxygenNetwork.GetCurPylone() && PlayerManager._instance.resourcesInventory[ResourcesType.Pylons] > 0) //if the player is not in range or if he does not have enough pylons in his inventory, he cannot place an oxygen pylone
+            if (oxygenNetwork.GetCurPylone()) //if the player is not in range, he cannot place an oxygen pylone
             {
                 isInPlacementMode = true;
                 StartCoroutine(PlacePylone());
-            }
-            else
-            {
-                if (!pyloneNotCreatedSound.isPlaying) pyloneNotCreatedSound.Play();
             }
         }
     }
@@ -48,8 +41,6 @@ public class PlayerPyloneController : MonoBehaviour
      */
     private IEnumerator PlacePylone()
     {
-        pyloneCreationSound.Play();
-        PlayerManager._instance.resourcesInventory[ResourcesType.Pylons]--;
         animator.SetBool("IsKneeling", true);
         GetComponent<PlayerMovement>().enabled = false;
         new_pylone = Instantiate(oxygenPylone);
