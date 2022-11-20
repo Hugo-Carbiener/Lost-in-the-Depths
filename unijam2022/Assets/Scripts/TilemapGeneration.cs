@@ -20,10 +20,13 @@ public class TilemapGeneration : MonoBehaviour
     /**
      * The tilemap is described by a 2 dimensionnal array
      * Each cell has a int that describes which tile occupies it
-     * -1 is for grass tiles
+     * -3 is for unbreakable
+     * -2 is for grass tiles
+     * -1 is for dirt tiles
      *  0 is for emptiness
      *  1,2,3,4 are for base tiles
-     *  11,12,13,14 are for ores
+     *  11,12,13,14 are for ores1
+     *  21,22,23,24 are for ores2 etc
      */
     private int[,] tilemapArray;
     int layerAmount;
@@ -36,11 +39,13 @@ public class TilemapGeneration : MonoBehaviour
     [SerializeField] int oreApparitionRangeOutOfLayer;
 
     [Header("Tiles prefabs")]
-    [SerializeField] private List<GameObject> baseTiles;
+    [SerializeField] private int biomeAmount;
+    [SerializeField] private GameObject rockTile;
     [SerializeField] private List<GameObject> oreTiles;
     [SerializeField] private GameObject finalOreTile;
-    [SerializeField] private GameObject grassTile;
     [SerializeField] private GameObject unbreakableTile;
+    [SerializeField] private GameObject grassTile;
+    [SerializeField] private GameObject dirtTile;
     GameObject[,] placedRockArray;
     Dictionary<int, GameObject> rockDictionary;
 
@@ -82,24 +87,36 @@ public class TilemapGeneration : MonoBehaviour
         rockDictionary = new Dictionary<int, GameObject>();
 
         // add rocks in dictionnary
-        for (int rockIndex = 0; rockIndex < baseTiles.Count; rockIndex++)
+        for (int rockIndex = 0; rockIndex < biomeAmount; rockIndex++)
         {
-            rockDictionary.Add(rockIndex + 1, baseTiles[rockIndex]);
-            baseTiles[rockIndex].SetActive(false);
+            rockDictionary.Add(rockIndex + 1, rockTile);
+            rockTile.SetActive(false);
         }
         // add ores in dictionnary
+        int counter = 0;
         for (int oreIndex = 0; oreIndex < oreTiles.Count; oreIndex++)
         {
-            rockDictionary.Add(oreIndex + 11, oreTiles[oreIndex]);
+            counter += 10;
+            for (int biomeIndex = 0; biomeIndex < biomeAmount; biomeIndex++)
+            {
+                counter += 1;
+                print(counter);
+                rockDictionary.Add(counter, oreTiles[oreIndex]);
+
+            }
+            counter -= biomeAmount;
             oreTiles[oreIndex].SetActive(false);
         }
+
         // add grass in dictionnary
-        rockDictionary.Add(-1, grassTile);
-        grassTile.SetActive(false);
-        rockDictionary.Add(-2, unbreakableTile);
-        unbreakableTile.SetActive(false);
-        rockDictionary.Add(20, finalOreTile);
+        rockDictionary.Add(-4, finalOreTile);
         finalOreTile.SetActive(false);
+        rockDictionary.Add(-3, unbreakableTile);
+        unbreakableTile.SetActive(false);
+        rockDictionary.Add(-2, grassTile);
+        grassTile.SetActive(false);
+        rockDictionary.Add(-1, dirtTile);
+        dirtTile.SetActive(false);
         elevator.SetActive(false);
 
         // initialize array
@@ -112,7 +129,7 @@ public class TilemapGeneration : MonoBehaviour
             }
         }
 
-        layerAmount = baseTiles.Count;
+        layerAmount = biomeAmount + 1;
         layerHeight = mapHeight / layerAmount;
     }
 
@@ -120,7 +137,7 @@ public class TilemapGeneration : MonoBehaviour
     {
         GenerateBaseTilemap();
 
-        GenerateBackground();
+        //GenerateBackground();
         GenerateOres();
 
         GenerateEntrance();
@@ -145,7 +162,15 @@ public class TilemapGeneration : MonoBehaviour
         {
             for (int x = 0; x < mapWidth; x++)
             {
-                tilemapArray[x, y] = (y / layerHeight) + 1;
+                int value = (y / layerHeight);
+                
+                // turn emptyness into dirt
+                if (value == 0)
+                {
+                    value = -1;
+                }
+
+                tilemapArray[x, y] = value;
             }
         }
     }
@@ -193,14 +218,14 @@ public class TilemapGeneration : MonoBehaviour
                 // dirt tile on the highest level
                 if (y == 0 && tilemapArray[x, y] != 0)
                 {
-                    tilemapArray[x, y] = -1;
+                    tilemapArray[x, y] = -2;
                     break;
                 }
 
                 // dirt tile with nothing above it
                 if (y > 0 && tilemapArray[x, y] == 1 && tilemapArray[x, y - 1] == 0)
                 {
-                    tilemapArray[x, y] = -1;
+                    tilemapArray[x, y] = -2;
                     break;
                 }
 
@@ -223,7 +248,7 @@ public class TilemapGeneration : MonoBehaviour
         {
             // for each ore, calculate y position with a gaussian 
             int oreVersion = Random.Range(0, oreTiles.Count);
-            int yPos = (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
+            int yPos = layerHeight + (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
             int xPos = Random.Range(0, mapWidth);
 
             // ensure coordinates are within bounds
@@ -233,7 +258,10 @@ public class TilemapGeneration : MonoBehaviour
             {
                 int veinSize = averageVeinSize + Random.Range(-averageVeinSize / 2, averageVeinSize / 2);
                 oreIndex += veinSize;
-                GenerateOreVein(correctedCoordinates.x, correctedCoordinates.y, veinSize, oreVersion);
+                
+                int oreCode = (oreVersion * 10) + (yPos / layerHeight);
+                if (oreCode % 10 == 0) oreCode++;
+                GenerateOreVein(correctedCoordinates.x, correctedCoordinates.y, veinSize, oreCode);
             }
         }
     }
@@ -243,7 +271,7 @@ public class TilemapGeneration : MonoBehaviour
         List<Vector2Int> oresPlaced = new List<Vector2Int>();
 
         // place first ore bloc
-        tilemapArray[x, y] = oreVersion + 11;
+        tilemapArray[x, y] = oreVersion;
         oresPlaced.Add(new Vector2Int(x, y));
 
         // place each block of ore in the vein
@@ -255,7 +283,7 @@ public class TilemapGeneration : MonoBehaviour
             Vector2Int targetPos = oresPlaced[orePosRd] + Utils.directNeihbors[directionRd];
             if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0))
             {
-                tilemapArray[targetPos.x, targetPos.y] = oreVersion + 11;
+                tilemapArray[targetPos.x, targetPos.y] = oreVersion;
                 oresPlaced.Add(new Vector2Int(targetPos.x, targetPos.y));
             }
         }
@@ -275,15 +303,15 @@ public class TilemapGeneration : MonoBehaviour
             // unbreakable blocs in the elevator shaft
             if (y > maxEntranceDepth && y != shaftDepth - 2 && y != shaftDepth - 3)
             {
-                tilemapArray[xs[1] + 1, y] = -2;
-                tilemapArray[xs[0] - 1, y] = -2;
+                tilemapArray[xs[1] + 1, y] = -3;
+                tilemapArray[xs[0] - 1, y] = -3;
             }
         }
 
-        tilemapArray[xs[0] - 1, shaftDepth] = -2;
-        tilemapArray[xs[0] , shaftDepth] = -2;
-        tilemapArray[xs[1] , shaftDepth] = -2;
-        tilemapArray[xs[1] + 1, shaftDepth] = -2;
+        tilemapArray[xs[0] - 1, shaftDepth] = -3;
+        tilemapArray[xs[0] , shaftDepth] = -3;
+        tilemapArray[xs[1] , shaftDepth] = -3;
+        tilemapArray[xs[1] + 1, shaftDepth] = -3;
 
         CreateCavity(xs[0] - 1, shaftDepth - 2, dropOffAreaSize);
         CreateCavity(xs[1] + 1, shaftDepth - 2, dropOffAreaSize);
@@ -309,7 +337,7 @@ public class TilemapGeneration : MonoBehaviour
             int directionRd = Random.Range(0, 4);
 
             Vector2Int targetPos = blocksRemoved[orePosRd] + Utils.directNeihbors[directionRd];
-            if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0 || tilemapArray[targetPos.x, targetPos.y] == -2 || tilemapArray[targetPos.x, targetPos.y] == 0))
+            if (!(targetPos.x >= mapWidth || targetPos.y >= mapHeight || targetPos.x < 0 || targetPos.y < 0 || tilemapArray[targetPos.x, targetPos.y] == -3 || tilemapArray[targetPos.x, targetPos.y] == 0))
             {
                 tilemapArray[targetPos.x, targetPos.y] = 0;
                 blocksRemoved.Add(new Vector2Int(targetPos.x, targetPos.y));
@@ -323,7 +351,7 @@ public class TilemapGeneration : MonoBehaviour
     private void GenerateFinalCave()
     {
         CreateCavity(mapWidth / 2, finalOreDepth, caveSize);
-        GenerateOreVein(mapWidth / 2, finalOreDepth, finalOreAmount, 9);
+        GenerateOreVein(mapWidth / 2, finalOreDepth, finalOreAmount, -4);
     }
 
     private void GenerateBorders()
@@ -331,15 +359,15 @@ public class TilemapGeneration : MonoBehaviour
         GameObject borderBloc;
         for (int x = 0; x < mapWidth; x++)
         {
-            borderBloc = Instantiate(rockDictionary[-2], grid.CellToWorld(new Vector3Int(x, -mapHeight, 0)), Quaternion.identity, blocContainer);
+            borderBloc = Instantiate(rockDictionary[-3], grid.CellToWorld(new Vector3Int(x, -mapHeight, 0)), Quaternion.identity, blocContainer);
             borderBloc.SetActive(true);
         }
 
         for (int y = 0; y < mapHeight; y++)
         {
-            borderBloc = Instantiate(rockDictionary[-2], grid.CellToWorld(new Vector3Int(-1, -y, 0)), Quaternion.identity, blocContainer);
+            borderBloc = Instantiate(rockDictionary[-3], grid.CellToWorld(new Vector3Int(-1, -y, 0)), Quaternion.identity, blocContainer);
             borderBloc.SetActive(true);
-            borderBloc = Instantiate(rockDictionary[-2], grid.CellToWorld(new Vector3Int(mapWidth, -y, 0)), Quaternion.identity, blocContainer);
+            borderBloc = Instantiate(rockDictionary[-3], grid.CellToWorld(new Vector3Int(mapWidth, -y, 0)), Quaternion.identity, blocContainer);
             borderBloc.SetActive(true);
         }
     }
@@ -450,7 +478,6 @@ public class TilemapGeneration : MonoBehaviour
     private void PaintRock(int x, int y)
     {
         int value = tilemapArray[x, y];
-        print("paint bloc " + x + ", " + y + " with value " + value);
         GameObject currentlyPlacedRock = GetPlacedRock(x, y);
         if (currentlyPlacedRock != null)
         {
@@ -460,9 +487,16 @@ public class TilemapGeneration : MonoBehaviour
         // we instantiate a block, store its coordinates in RockManager for later use and set it active
         if (value != 0)
         {
-            GameObject rockToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
+            GameObject rockToPlace = Instantiate(rockDictionary[value], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
             rockToPlace.GetComponent<RockManager>().SetCoordinates(new Vector2Int(x, y));
             rockToPlace.SetActive(true);
+            
+            if (value > 0)
+            {
+                rockToPlace.GetComponent<RockTextureManager>().SetTexture(value % 10);
+
+            }
+            
             placedRockArray[x, y] = rockToPlace;
         }
     }
