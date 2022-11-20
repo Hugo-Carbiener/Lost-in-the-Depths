@@ -38,6 +38,7 @@ public class TilemapGeneration : MonoBehaviour
     [Header("Tiles prefabs")]
     [SerializeField] private List<GameObject> baseTiles;
     [SerializeField] private List<GameObject> oreTiles;
+    [SerializeField] private GameObject finalOreTile;
     [SerializeField] private GameObject grassTile;
     [SerializeField] private GameObject unbreakableTile;
     GameObject[,] placedRockArray;
@@ -59,6 +60,11 @@ public class TilemapGeneration : MonoBehaviour
     [Header("Landscaping")]
     [SerializeField] private int maxEntranceDepth;
 
+    [Header("End Ore")]
+    [SerializeField] private int finalOreDepth;
+    [SerializeField] private int caveSize;
+    [SerializeField] private int finalOreAmount;
+
     private void Awake()
     {
         // singleton
@@ -70,7 +76,6 @@ public class TilemapGeneration : MonoBehaviour
         {
             Instance = this;
         }
-
 
         placedRockArray = new GameObject[mapWidth, mapHeight];
         fogOfWarArray = new GameObject[mapWidth, mapHeight];
@@ -93,6 +98,8 @@ public class TilemapGeneration : MonoBehaviour
         grassTile.SetActive(false);
         rockDictionary.Add(-2, unbreakableTile);
         unbreakableTile.SetActive(false);
+        rockDictionary.Add(20, finalOreTile);
+        finalOreTile.SetActive(false);
         elevator.SetActive(false);
 
         // initialize array
@@ -120,8 +127,12 @@ public class TilemapGeneration : MonoBehaviour
         GenerateGrass();
 
         GenerateElevator();
+        GenerateFinalCave();
+
 
         PaintTilemap();
+        
+        GenerateBorders();   
         GenerateFogOfWar();
     }
 
@@ -307,6 +318,33 @@ public class TilemapGeneration : MonoBehaviour
     }
 
     /**
+     * Digs a hole at the bottom and put the final ore vein
+     */
+    private void GenerateFinalCave()
+    {
+        CreateCavity(mapWidth / 2, finalOreDepth, caveSize);
+        GenerateOreVein(mapWidth / 2, finalOreDepth, finalOreAmount, 9);
+    }
+
+    private void GenerateBorders()
+    {
+        GameObject borderBloc;
+        for (int x = 0; x < mapWidth; x++)
+        {
+            borderBloc = Instantiate(rockDictionary[-2], grid.CellToWorld(new Vector3Int(x, -mapHeight, 0)), Quaternion.identity, blocContainer);
+            borderBloc.SetActive(true);
+        }
+
+        for (int y = 0; y < mapHeight; y++)
+        {
+            borderBloc = Instantiate(rockDictionary[-2], grid.CellToWorld(new Vector3Int(-1, -y, 0)), Quaternion.identity, blocContainer);
+            borderBloc.SetActive(true);
+            borderBloc = Instantiate(rockDictionary[-2], grid.CellToWorld(new Vector3Int(mapWidth, -y, 0)), Quaternion.identity, blocContainer);
+            borderBloc.SetActive(true);
+        }
+    }
+
+    /**
      * call paint rock on the whole tilemap
      */
     private void PaintTilemap()
@@ -412,7 +450,7 @@ public class TilemapGeneration : MonoBehaviour
     private void PaintRock(int x, int y)
     {
         int value = tilemapArray[x, y];
-
+        print("paint bloc " + x + ", " + y + " with value " + value);
         GameObject currentlyPlacedRock = GetPlacedRock(x, y);
         if (currentlyPlacedRock != null)
         {
