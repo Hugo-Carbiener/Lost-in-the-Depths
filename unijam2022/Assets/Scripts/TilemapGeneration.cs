@@ -517,9 +517,13 @@ public class TilemapGeneration : MonoBehaviour
      */
     public void RemoveRock(int x, int y)
     {
-        tilemapArray[x, y] = 0;
-        PaintRock(x, y);
-        UpdateFogOfWarAround(x, y);
+        if (tilemapArray[x, y] != -4)
+        {
+            tilemapArray[x, y] = 0;
+            PaintRock(x, y);
+            UpdateFogOfWarAround(x, y);
+        }
+
     }
 
     // block prefab getter

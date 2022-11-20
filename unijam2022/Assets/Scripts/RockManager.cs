@@ -61,6 +61,10 @@ public class RockManager : MonoBehaviour
             }
             if (lifetime <= 0)
             {
+                if (resourceType == ResourcesType.FinalOre)
+                {
+                    GetComponent<FinaRockController>().StartVictory();
+                }
                 PlayerManager._instance.AddToResourcesInventory(resourceType);
                 lifetime = 0;
                 TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);

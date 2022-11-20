@@ -11,14 +11,13 @@ public class FinaRockController : MonoBehaviour
         audioLaser = GetComponent<AudioSource>();
     }
 
-    private void OnDestroy()
+    public void StartVictory()
     {
-        StartCoroutine(Victory());
+        StartCoroutine("Victory");
     }
 
     private IEnumerator Victory()
     {
-        GetComponent<PlayerMovement>().enabled = false;
         audioLaser.Stop();
         GameObject.FindGameObjectWithTag("UI").GetComponent<UIController>().TriggerVictory();
         yield return new WaitForSeconds(1f);
