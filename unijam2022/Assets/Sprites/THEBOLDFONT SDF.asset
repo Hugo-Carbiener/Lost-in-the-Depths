@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-230670929172884227
+--- !u!21 &-5339599857200785160
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 0
@@ -33,7 +33,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 8029797633043880360}
+        m_Texture: {fileID: 8188937618193164530}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OutlineTex:
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: THEBOLDFONT SDF
   m_EditorClassIdentifier: 
   hashCode: 1371451646
-  material: {fileID: -230670929172884227}
+  material: {fileID: -5339599857200785160}
   materialHashCode: -1117054050
   m_Version: 1.1.0
   m_SourceFontFileGUID: 689aeae01c374794189b577cf14783ac
@@ -599,7 +599,7 @@ MonoBehaviour:
     m_GlyphIndex: 37
     m_Scale: 1
   m_AtlasTextures:
-  - {fileID: 8029797633043880360}
+  - {fileID: 8188937618193164530}
   m_AtlasTextureIndex: 0
   m_IsMultiAtlasTexturesEnabled: 0
   m_ClearDynamicDataOnBuild: 0
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   boldSpacing: 7
   italicStyle: 35
   tabSize: 10
---- !u!28 &8029797633043880360
+--- !u!28 &8188937618193164530
 Texture2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
