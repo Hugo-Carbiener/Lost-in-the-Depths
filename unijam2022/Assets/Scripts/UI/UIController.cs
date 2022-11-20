@@ -23,6 +23,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pylonNumber;
 
     [SerializeField] private GameObject EscapeMenuUI;
+    [SerializeField] private GameObject CraftMenuUI;
 
     private void Start()
     {
@@ -52,10 +53,16 @@ public class UIController : MonoBehaviour
         pylonNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Pylons].ToString();
     }
 
-    public void OnResume()
+    public void OnResumeEscapeMenu()
     {
         Time.timeScale = 1;
         EscapeMenuUI.SetActive(false);
+    }
+
+    public void OnResumeCraftMenu()
+    {
+        Time.timeScale = 1;
+        CraftMenuUI.SetActive(false);
     }
 
     public void OnBackToMainMenu()

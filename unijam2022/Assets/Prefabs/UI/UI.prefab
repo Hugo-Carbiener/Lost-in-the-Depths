@@ -1717,7 +1717,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 4339090627719968696}
         m_TargetAssemblyTypeName: CraftManager, Assembly-CSharp
         m_MethodName: UpgradeLaser
         m_Mode: 1
@@ -4709,6 +4709,7 @@ MonoBehaviour:
   diamondNumber: {fileID: 2315911436505445021}
   pylonNumber: {fileID: 1414994528287023867}
   EscapeMenuUI: {fileID: 581037334405867992}
+  CraftMenuUI: {fileID: 6927667939861238523}
 --- !u!1 &8487954428667604816
 GameObject:
   m_ObjectHideFlags: 0
