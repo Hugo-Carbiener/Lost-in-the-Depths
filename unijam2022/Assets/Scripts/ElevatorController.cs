@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ElevatorController : MonoBehaviour
 {
+    [Header("Component")]
+    [SerializeField] private Canvas help;
+
     [Header("Elevator variables")]
     [SerializeField] private int travelDuration;
     [SerializeField] private int loadingDuration;
@@ -26,14 +29,28 @@ public class ElevatorController : MonoBehaviour
         topPosition = transform.position;
         bottomPosition = transform.position + Vector3.down * depth;
         state = elevatorState.atTop;
+        help.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.tag == "Player" && state != elevatorState.inTravel)
         {
-            player = other.transform;
-            StartCoroutine("StartTravel");
+            help.gameObject.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                player = other.transform;
+                StartCoroutine("StartTravel");
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player" && state != elevatorState.inTravel)
+        {
+            help.gameObject.SetActive(false);
         }
     }
 
