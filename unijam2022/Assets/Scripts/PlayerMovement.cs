@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 3f;
     [SerializeField] private float gravityScale = 5f;
     private float jumpForce;
-    private bool isGrounded = true;
+    public bool isGrounded = true;
 
     [SerializeField] private LineRenderer line;
     private Vector3 forwardVector;

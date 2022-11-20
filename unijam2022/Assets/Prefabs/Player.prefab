@@ -387,9 +387,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coefficientsLaser:
-  - 1
-  - 1.2
-  - 1.5
+  - 0.8
+  - 1.1
+  - 1.4
   maxLaserLevel: 3
 --- !u!114 &482635472480412691
 MonoBehaviour:
@@ -410,6 +410,7 @@ MonoBehaviour:
   speed: 10
   jumpHeight: 3
   gravityScale: 1.5
+  isGrounded: 1
   line: {fileID: 1334091929354094612}
 --- !u!114 &4462038896432603938
 MonoBehaviour:
@@ -425,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxOxygen: 100
   curOxygen: 0
-  consumptionRate: 10
+  consumptionRate: 7
   isRecharging: 0
   deathAudio: {fileID: 3837154862160299757}
   mesh: {fileID: 2052555910176887835}
