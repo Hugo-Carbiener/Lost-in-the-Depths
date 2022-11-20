@@ -57,25 +57,23 @@ MonoBehaviour:
   oreDensity: 0.1
   OffsetFromSurface: 5
   oreApparitionRangeOutOfLayer: 30
-  baseTiles:
-  - {fileID: 5862150834925794803, guid: d35c55e4e9f14594b802359c690e3f3e, type: 3}
-  - {fileID: 5862150834925794803, guid: 1d438dac393483f4bb3bf6f873dc3907, type: 3}
-  - {fileID: 5862150834925794803, guid: 57119faa5da094d4f8e4c9093cb37351, type: 3}
-  - {fileID: 5862150834925794803, guid: 9556b43b60a779742a963ba83ff946ed, type: 3}
+  biomeAmount: 4
+  rockTile: {fileID: 5862150834925794803, guid: 181cbde1a890b234c8e0a050798ef286, type: 3}
   oreTiles:
-  - {fileID: 5862150834925794803, guid: d379248b291d2c144a0051da2532697e, type: 3}
+  - {fileID: 5862150834925794803, guid: 48bcd3a035d6a704da64bbc410a7e9f1, type: 3}
   - {fileID: 5862150834925794803, guid: b4190ad5b72965b4384bfab7fc5c5a23, type: 3}
-  - {fileID: 5862150834925794803, guid: e5d0ce1834385944daf7d1e58c765a9d, type: 3}
-  finalOreTile: {fileID: 5862150834925794803, guid: 60dd1f393af3638418cdfe3a0c41fc66, type: 3}
-  grassTile: {fileID: 5862150834925794803, guid: 2d633e7252adc484ebf0d0c8af3131d2, type: 3}
+  - {fileID: 5862150834925794803, guid: 688f7a7491fcaa64ea10811c028c3f2e, type: 3}
+  finalOreTile: {fileID: 5862150834925794803, guid: 96cc2e9f5b7db8d409c9bd93b317a43f, type: 3}
   unbreakableTile: {fileID: 5862150834925794803, guid: 0ae1eb8685c1d8a499f3c63a8fbd78a8, type: 3}
+  grassTile: {fileID: 5862150834925794803, guid: 2d633e7252adc484ebf0d0c8af3131d2, type: 3}
+  dirtTile: {fileID: 5862150834925794803, guid: d35c55e4e9f14594b802359c690e3f3e, type: 3}
   depthOffset: 1
   FogOfWarTile: {fileID: 5862150834925794803, guid: e44cc4d08437a38448dd72f9d4dacf1f, type: 3}
   shaftDepth: 15
   elevator: {fileID: 4194461280763554323, guid: 7fe0136f7b675344d8839dd973021d07, type: 3}
   dropOffAreaSize: 20
   maxEntranceDepth: 5
-  finalOreDepth: 95
+  finalOreDepth: 90
   caveSize: 100
   finalOreAmount: 1
 --- !u!1 &6444111773010273990
