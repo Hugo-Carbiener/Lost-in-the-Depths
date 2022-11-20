@@ -12,20 +12,18 @@ public class RockManager : MonoBehaviour
     private float startLifeTime;
 
     [Header("Particles")]
-    [SerializeField] private GameObject particles;
-    [SerializeField] private GameObject particlesNearDeath;
     private bool nearDeath;
 
     private void Awake()
     {
-        if(particles != null)
-        {
-            particles.SetActive(false);
-        }
-        if (particlesNearDeath != null)
-        {
-            particlesNearDeath.SetActive(false);
-        }
+        //if(particles != null)
+        //{
+        //    particles.SetActive(false);
+        //}
+        //if (particlesNearDeath != null)
+        //{
+        //    particlesNearDeath.SetActive(false);
+        //}
         breakingSound = gameObject.GetComponent<AudioSource>();
         nearDeath = false;
         startLifeTime = lifetime;
@@ -33,21 +31,21 @@ public class RockManager : MonoBehaviour
 
     void HitByRay()
     {
-        if (nearDeath)
-        {
-            if (particlesNearDeath != null)
-            {
-                particlesNearDeath.SetActive(true);
-                particles.SetActive(false);
-            }
-        }
-        else
-        {
-            if (particles != null)
-            {
-                particles.SetActive(true);
-            }
-        }
+        //if (nearDeath)
+        //{
+        //    if (particlesNearDeath != null)
+        //    {
+        //        particlesNearDeath.SetActive(true);
+        //        particles.SetActive(false);
+        //    }
+        //}
+        //else
+        //{
+        //    if (particles != null)
+        //    {
+        //        particles.SetActive(true);
+        //    }
+        //}
         if (lifetime <= startLifeTime / 3f)
         {
             nearDeath = true;
@@ -70,14 +68,14 @@ public class RockManager : MonoBehaviour
 
     void NoLongerHit()
     {
-        if (particlesNearDeath != null)
-        {
-            particlesNearDeath.SetActive(false);
-        }
-        if (particles != null)
-        {
-            particles.SetActive(false);
-        }
+        //if (particlesNearDeath != null)
+        //{
+        //    particlesNearDeath.SetActive(false);
+        //}
+        //if (particles != null)
+        //{
+        //    particles.SetActive(false);
+        //}
     }
 
     public void SetCoordinates(Vector2Int coords)
