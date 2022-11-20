@@ -54,7 +54,7 @@ MonoBehaviour:
   mapWidth: 70
   mapHeight: 120
   averageVeinSize: 4
-  oreDensity: 0.2
+  oreDensity: 0.15
   OffsetFromSurface: 15
   oreApparitionRangeOutOfLayer: 15
   biomeAmount: 4
