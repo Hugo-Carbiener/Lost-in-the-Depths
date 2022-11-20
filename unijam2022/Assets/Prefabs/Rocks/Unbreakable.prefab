@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2439396487111309206}
   m_Layer: 6
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Rock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,10 +144,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakingSound: {fileID: 0}
-  lifetime: 1
   resourceType: 0
-  coefficientsLaser: []
   particles: {fileID: 0}
+  particlesNearDeath: {fileID: 0}
 --- !u!82 &4158977686110377970
 AudioSource:
   m_ObjectHideFlags: 0

@@ -51,12 +51,12 @@ MonoBehaviour:
   blocContainer: {fileID: 3191374943279725780}
   backgroundBlocContainer: {fileID: 3855822736293258694}
   foWContainer: {fileID: 3649916467999985351}
-  mapWidth: 100
-  mapHeight: 100
-  averageVeinSize: 6
-  oreDensity: 0.1
-  OffsetFromSurface: 5
-  oreApparitionRangeOutOfLayer: 30
+  mapWidth: 70
+  mapHeight: 120
+  averageVeinSize: 4
+  oreDensity: 0.04
+  OffsetFromSurface: 6
+  oreApparitionRangeOutOfLayer: 10
   biomeAmount: 4
   rockTile: {fileID: 5862150834925794803, guid: 181cbde1a890b234c8e0a050798ef286, type: 3}
   oreTiles:
@@ -85,7 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3855822736293258694}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BackgroundBlocs
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3191374943279725780}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Blocs
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3649916467999985351}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: FogOfWar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

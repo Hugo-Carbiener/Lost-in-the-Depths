@@ -100,7 +100,6 @@ public class TilemapGeneration : MonoBehaviour
             for (int biomeIndex = 0; biomeIndex < biomeAmount; biomeIndex++)
             {
                 counter += 1;
-                print(counter);
                 rockDictionary.Add(counter, oreTiles[oreIndex]);
 
             }
@@ -137,7 +136,7 @@ public class TilemapGeneration : MonoBehaviour
     {
         GenerateBaseTilemap();
 
-        //GenerateBackground();
+        GenerateBackground();
         GenerateOres();
 
         GenerateEntrance();
@@ -145,7 +144,6 @@ public class TilemapGeneration : MonoBehaviour
 
         GenerateElevator();
         GenerateFinalCave();
-
 
         PaintTilemap();
         
@@ -422,7 +420,7 @@ public class TilemapGeneration : MonoBehaviour
             Vector2Int targetPos = new Vector2Int(direction.x + x, direction.y + y);
             try
             {
-                if (tilemapArray[targetPos.x, targetPos.y] == 0 || tilemapArray[targetPos.x, targetPos.y] == -1)
+                if (tilemapArray[targetPos.x, targetPos.y] == 0 || tilemapArray[targetPos.x, targetPos.y] == -2)
                 {
                     shouldBeCovered = false;
                     break;
@@ -487,6 +485,10 @@ public class TilemapGeneration : MonoBehaviour
         // we instantiate a block, store its coordinates in RockManager for later use and set it active
         if (value != 0)
         {
+            if (!rockDictionary.ContainsKey(value))
+            {
+                value = 1;
+            }
             GameObject rockToPlace = Instantiate(rockDictionary[value], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
             rockToPlace.GetComponent<RockManager>().SetCoordinates(new Vector2Int(x, y));
             rockToPlace.SetActive(true);
