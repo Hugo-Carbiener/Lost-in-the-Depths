@@ -50,7 +50,6 @@ public class RockManager : MonoBehaviour
         }
         if (lifetime <= startLifeTime / 3f)
         {
-            Debug.Log("NEAR DEATH");
             nearDeath = true;
         }
         if (resourceType != ResourcesType.Unbreakable)
