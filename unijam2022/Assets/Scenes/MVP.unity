@@ -2935,6 +2935,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4919532199890143226, guid: 90d838f24e8f44c478768f1992c56efa, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: fb7da9a46a3f8ac4b8140253712b874a, type: 2}
+    - target: {fileID: 4919532199890143226, guid: 90d838f24e8f44c478768f1992c56efa, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8655780399313366400, guid: 90d838f24e8f44c478768f1992c56efa, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -6650,6 +6658,10 @@ PrefabInstance:
     - target: {fileID: 7640352012615352130, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
       propertyPath: m_SizeDelta.y
       value: -314
+      objectReference: {fileID: 0}
+    - target: {fileID: 8487954428510718884, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8487954428510718884, guid: ef61f8ad0466f844a88cfa92c93e297c, type: 3}
       propertyPath: m_PresetInfoIsWorld
