@@ -6,7 +6,7 @@ public class RockManager : MonoBehaviour
 {
     [Header("Rock variables")]
     [SerializeField] private AudioSource breakingSound;
-    public float lifetime { private get; set; } = 5;
+    public float lifetime { private get; set; } = 1;
     [SerializeField] private ResourcesType resourceType;
     private Vector2Int coordinates;
     private float startLifeTime;
