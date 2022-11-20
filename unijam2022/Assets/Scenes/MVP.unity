@@ -2192,6 +2192,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioSources
       objectReference: {fileID: 0}
+    - target: {fileID: 1608483699663532402, guid: 333a38713ed1c644ead12778e9db4e45, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 333a38713ed1c644ead12778e9db4e45, type: 3}
 --- !u!4 &582989712 stripped
