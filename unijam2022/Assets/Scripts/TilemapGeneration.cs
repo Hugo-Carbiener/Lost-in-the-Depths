@@ -245,13 +245,14 @@ public class TilemapGeneration : MonoBehaviour
         for (int oreIndex = 0; oreIndex < oreAmount;)
         {
             // for each ore, calculate y position with a gaussian 
-            int oreVersion = Random.Range(0, oreTiles.Count) + 1;
+            int oreVersion = Random.Range(0, oreTiles.Count);
             int yPos = (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
             int xPos = Random.Range(0, mapWidth);
 
             // ensure coordinates are within bounds
             Vector2Int correctedCoordinates = CheckMapBounds(xPos, yPos);
 
+            oreVersion++;
             if (yPos >= OffsetFromSurface)
             {
                 int veinSize = averageVeinSize + Random.Range(-averageVeinSize / 2, averageVeinSize / 2);

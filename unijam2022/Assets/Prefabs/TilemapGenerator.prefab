@@ -54,8 +54,8 @@ MonoBehaviour:
   mapWidth: 70
   mapHeight: 120
   averageVeinSize: 4
-  oreDensity: 0.1
-  OffsetFromSurface: 2
+  oreDensity: 0.2
+  OffsetFromSurface: 15
   oreApparitionRangeOutOfLayer: 15
   biomeAmount: 4
   rockTile: {fileID: 5862150834925794803, guid: 181cbde1a890b234c8e0a050798ef286, type: 3}
