@@ -37,7 +37,7 @@ public class CraftManager : MonoBehaviour
 
     private void Update()
     {
-            if (PlayerManager._instance.resourcesInventory[ResourcesType.Coal] >= coalRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Gold] >= goldRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] >= diamondRequiredForPylons)
+            if (PlayerManager._instance.resourcesInventory[ResourcesType.Coal] >= coalRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Gold] >= goldRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] >= diamondRequiredForPylons && PlayerManager._instance.GetLaserLevel() < PlayerManager._instance.GetMaxLaserLevel())
             {
                 craftPylonsButton.interactable = true;
             }

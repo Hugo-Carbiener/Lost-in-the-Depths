@@ -8,6 +8,8 @@ public class PlayerManager : MonoBehaviour
 
     public Dictionary<ResourcesType, int> resourcesInventory;
     private int laserLevel = 1;
+    public float[] coefficientsLaser;
+    [SerializeField] private int maxLaserLevel = 3;
 
     private void Awake()
     {
@@ -35,6 +37,11 @@ public class PlayerManager : MonoBehaviour
     public int GetLaserLevel()
     {
         return laserLevel;
+    }
+
+    public int GetMaxLaserLevel()
+    {
+        return maxLaserLevel;
     }
 
     public void IncrementLaserLevel()

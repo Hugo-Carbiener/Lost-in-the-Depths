@@ -368,6 +368,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb9b2090cc659541b1031cdce5432cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coefficientsLaser:
+  - 1
+  - 1.2
+  - 1.5
+  maxLaserLevel: 3
 --- !u!114 &482635472480412691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +391,6 @@ MonoBehaviour:
   speed: 10
   jumpHeight: 3
   gravityScale: 1.5
-  isGrounded: 0
   line: {fileID: 5919545417442637049}
 --- !u!114 &4462038896432603938
 MonoBehaviour:
@@ -418,6 +422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   oxygenPylone: {fileID: 1156694805791111067, guid: d294171a71664654cafe1983e6e7db74, type: 3}
   mesh: {fileID: 2052555910176887835}
+  pyloneCreationSound: {fileID: 5514563407645961056}
+  pyloneNotCreatedSound: {fileID: 5189350788257269428}
 --- !u!114 &7075452754570754689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -538,8 +544,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
-  pyloneCreationSound: {fileID: 5514563407645961056}
-  pyloneNotCreatedSound: {fileID: 5189350788257269428}
 --- !u!1 &698190100838565462
 GameObject:
   m_ObjectHideFlags: 0
