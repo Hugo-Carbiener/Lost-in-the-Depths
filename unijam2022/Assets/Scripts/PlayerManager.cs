@@ -7,6 +7,7 @@ public class PlayerManager : MonoBehaviour
     public static PlayerManager _instance;
 
     public Dictionary<ResourcesType, int> resourcesInventory;
+    private int laserLevel = 1;
 
     private void Awake()
     {
@@ -29,5 +30,15 @@ public class PlayerManager : MonoBehaviour
         {
             resourcesInventory.Add(resource, 1);
         }
+    }
+
+    public int GetLaserLevel()
+    {
+        return laserLevel;
+    }
+
+    public void IncrementLaserLevel()
+    {
+        laserLevel++;
     }
 }

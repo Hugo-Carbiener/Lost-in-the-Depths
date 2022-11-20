@@ -9,6 +9,7 @@ public class RockManager : MonoBehaviour
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private ResourcesType resourceType;
     private Vector2Int coordinates;
+    [SerializeField] private float[] coefficientsLaser;
 
     private void Awake()
     {
@@ -19,7 +20,7 @@ public class RockManager : MonoBehaviour
     {
         if (resourceType != ResourcesType.Unbreakable)
         {
-            lifetime -= Time.deltaTime;
+            lifetime -= Time.deltaTime * coefficientsLaser[PlayerManager._instance.GetLaserLevel()];
             if (lifetime > 0 && lifetime < 0.4f)
             {
                 if (!breakingSound.isPlaying) breakingSound.Play();
