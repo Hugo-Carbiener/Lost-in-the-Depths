@@ -31,7 +31,7 @@ public class PlayerPyloneController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && !isInPlacementMode) //if the player is in normal mode, he will enter placement mode by pressing Mouse0
         {
-            if (oxygenNetwork.GetCurPylone() && PlayerManager._instance.resourcesInventory[ResourcesType.Pylons] > 0) //if the player is not in range or if he does not have enough pylons in his inventory, he cannot place an oxygen pylone
+            if (oxygenNetwork.GetCurPylone() && oxygenNetwork.GetLastPylone().GetComponent<OxygenPyloneController>().TestPlayerConnection() && PlayerManager._instance.resourcesInventory[ResourcesType.Pylons] > 0) //if the player is not in range or if he does not have enough pylons in his inventory, he cannot place an oxygen pylone
             {
                 isInPlacementMode = true;
                 StartCoroutine(PlacePylone());
