@@ -4,6 +4,5 @@ public enum ResourcesType
     Rock,
     Coal,
     Gold,
-    Diamond,
-    Pylons
+    Diamond
 }
