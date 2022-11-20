@@ -51,7 +51,7 @@ MonoBehaviour:
   blocContainer: {fileID: 3191374943279725780}
   backgroundBlocContainer: {fileID: 3855822736293258694}
   foWContainer: {fileID: 3649916467999985351}
-  mapWidth: 30
+  mapWidth: 100
   mapHeight: 100
   averageVeinSize: 6
   oreDensity: 0.1
@@ -66,6 +66,7 @@ MonoBehaviour:
   - {fileID: 5862150834925794803, guid: d379248b291d2c144a0051da2532697e, type: 3}
   - {fileID: 5862150834925794803, guid: b4190ad5b72965b4384bfab7fc5c5a23, type: 3}
   - {fileID: 5862150834925794803, guid: e5d0ce1834385944daf7d1e58c765a9d, type: 3}
+  finalOreTile: {fileID: 5862150834925794803, guid: 60dd1f393af3638418cdfe3a0c41fc66, type: 3}
   grassTile: {fileID: 5862150834925794803, guid: 2d633e7252adc484ebf0d0c8af3131d2, type: 3}
   unbreakableTile: {fileID: 5862150834925794803, guid: 0ae1eb8685c1d8a499f3c63a8fbd78a8, type: 3}
   depthOffset: 1
@@ -74,6 +75,9 @@ MonoBehaviour:
   elevator: {fileID: 4194461280763554323, guid: 7fe0136f7b675344d8839dd973021d07, type: 3}
   dropOffAreaSize: 20
   maxEntranceDepth: 5
+  finalOreDepth: 95
+  caveSize: 100
+  finalOreAmount: 1
 --- !u!1 &6444111773010273990
 GameObject:
   m_ObjectHideFlags: 0
