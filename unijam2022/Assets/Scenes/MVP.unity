@@ -6949,7 +6949,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 289553152166715510, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: pylonesNetwork.Array.size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 289553152166715510, guid: 01b99c690aa2b214aa98bf07b21d8eea, type: 3}
       propertyPath: pylonesNetwork.Array.data[0]

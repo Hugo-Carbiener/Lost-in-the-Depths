@@ -25,6 +25,10 @@ public class PlayerMovement : MonoBehaviour
 
     private GameObject lastHitBlock;
 
+
+    [SerializeField] private GameObject particles;
+    [SerializeField] private GameObject particlesNearDeath;
+
     private void Start()
     {
         animator = mesh.GetComponent<Animator>();
@@ -104,9 +108,12 @@ public class PlayerMovement : MonoBehaviour
                     if(lastHitBlock && hit.transform.gameObject != lastHitBlock)
                     {
                         lastHitBlock.transform.parent.SendMessage("NoLongerHit");
+                        particles.SetActive(false);
                     }
                     line.SetPosition(1, hit.point - transform.position);
                     hit.transform.parent.SendMessage("HitByRay");
+                    particles.SetActive(true);
+                    particles.transform.position = hit.transform.position;
                     lastHitBlock = hit.transform.gameObject;
                 }
                 else
