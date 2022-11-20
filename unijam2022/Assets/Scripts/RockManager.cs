@@ -29,7 +29,7 @@ public class RockManager : MonoBehaviour
         }
         if (resourceType != ResourcesType.Unbreakable)
         {
-            lifetime -= Time.deltaTime;
+            lifetime -= Time.deltaTime * PlayerManager._instance.coefficientsLaser[PlayerManager._instance.GetLaserLevel() - 1];
             if (lifetime > 0 && lifetime < 0.4f)
             {
                 if (!breakingSound.isPlaying) breakingSound.Play();

@@ -255,6 +255,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb9b2090cc659541b1031cdce5432cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coefficientsLaser:
+  - 1
+  - 1.2
+  - 1.5
+  maxLaserLevel: 3
 --- !u!114 &482635472480412691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mesh: {fileID: 2052555910176887835}
-  gdDetector: {fileID: 5307847863625929150}
+  gdDetector: {fileID: 0}
   walkingGrassSound: {fileID: 3040823577991679801}
   walkingRockSound: {fileID: 6740388644788298167}
   speed: 10
@@ -886,7 +891,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014185246874969474}
   - component: {fileID: 1406652873410123146}
-  - component: {fileID: 5307847863625929150}
+  - component: {fileID: 8375791241301594055}
   m_Layer: 0
   m_Name: GroundDetector
   m_TagString: Untagged
@@ -922,7 +927,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 0.5, z: 0.5}
   m_Center: {x: 0, y: -0.75, z: 0}
---- !u!114 &5307847863625929150
+--- !u!114 &8375791241301594055
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -931,7 +936,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6078343159940932168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 862bcc6386bac1b4db0d18b02ed9b977, type: 3}
+  m_Script: {fileID: 11500000, guid: f3abe7851544da3418296f512bb4c7c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9095932613410905176

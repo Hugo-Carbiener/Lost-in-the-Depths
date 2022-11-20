@@ -245,6 +245,9 @@ MonoBehaviour:
   breakingSound: {fileID: 0}
   lifetime: 1.5
   resourceType: 2
+  coefficientsLaser:
+  - 1
+  - 1.2
   particles: {fileID: 981751971408627454}
 --- !u!82 &-4605802849084606237
 AudioSource:
