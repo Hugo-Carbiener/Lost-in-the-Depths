@@ -27,6 +27,7 @@ public class MainMenuController : MonoBehaviour
         while (!loadingLevel.isDone)
         {
             yield return null;
+
         }
     }
 
