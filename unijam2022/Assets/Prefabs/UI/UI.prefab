@@ -4530,17 +4530,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd7f60024b3c2a140a76699b0186ceaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coalRequiredForPylons: 3
+  coalRequiredForPylons: 1
   goldRequiredForPylons: 0
   diamondRequiredForPylons: 0
-  pylonsCrafted: 3
+  pylonsCrafted: 1
   nbCoalRequiredForPylons: {fileID: 7394466161569679518}
   nbGoldRequiredForPylons: {fileID: 6373202037318089981}
   nbDiamondRequiredForPylons: {fileID: 4688926027284046311}
   craftPylonsButton: {fileID: 832209694058392883}
-  coalRequiredForLaser: 10
+  coalRequiredForLaser: 5
   goldRequiredForLaser: 5
-  diamondRequiredForLaser: 2
+  diamondRequiredForLaser: 0
   nbCoalRequiredForLaser: {fileID: 5759804259379867682}
   nbGoldRequiredForLaser: {fileID: 7483296257381103659}
   nbDiamondRequiredForLaser: {fileID: 1632705673525339112}
@@ -4928,7 +4928,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Cr\xE9er trois pyl\xF4nes"
+  m_text: "Cr\xE9er un pyl\xF4ne"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5522,7 +5522,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8487954428510718885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5563,7 +5563,6 @@ MonoBehaviour:
   uiAudio: {fileID: 7950197719253580915}
   deathAnimation: {fileID: 4691254934349089043}
   victoryAnimation: {fileID: 8067550130281152224}
-  loadingScreen: {fileID: 0}
 --- !u!1 &8487954428667604816
 GameObject:
   m_ObjectHideFlags: 0
