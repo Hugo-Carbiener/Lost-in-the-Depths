@@ -12,12 +12,21 @@ public class OxygenModuleController : MonoBehaviour
     [HideInInspector] public float curOxygen;
     public float consumptionRate;
     public bool isRecharging;//boolean put at true if player connected to oxygen system (hence recharging)
+    [SerializeField] private AudioSource deathAudio;
+    private AudioSource audioLaser;
+    [SerializeField] private GameObject mesh;
+    [SerializeField] private GameObject laser;
+    private bool isDying;
+    private Animator animator;
 
     private void Start()
     {
         curOxygen = maxOxygen;
         isRecharging = false;
         StartCoroutine(ConsumeOxygen());
+        isDying = false;
+        animator = mesh.GetComponent<Animator>();
+        audioLaser = GetComponent<AudioSource>();
     }
 
     /**
@@ -27,12 +36,11 @@ public class OxygenModuleController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         curOxygen-=consumptionRate;
-        //Debug.Log("Current oxygen level : " + curOxygen);
-        if (curOxygen <= 0)
+        if (curOxygen <= 0 && !isDying)
         {
             curOxygen = 0;
-            OxygenDeath();
-            //Debug.Log("ALERT : NO OXYGEN REMAINING");
+            isDying = true;
+            StartCoroutine(OxygenDeath());
         }
         StartCoroutine(ConsumeOxygen());
     }
@@ -58,8 +66,22 @@ public class OxygenModuleController : MonoBehaviour
     /**
     *   Death of the player
     */
-    private void OxygenDeath()
+    private IEnumerator OxygenDeath()
     {
+        Debug.Log("DYING");
+        GetComponent<PlayerMovement>().enabled = false;
+        audioLaser.Stop();
+        deathAudio.Play();
+        laser.SetActive(false);
+        animator.SetBool("IsKneeling", false);
+        animator.SetBool("IsJumping", false);
+        animator.SetBool("IsRunning", false);
+        animator.SetBool("IsFalling", false);
+        animator.SetBool("IsShooting", false);
+        animator.SetBool("IsDying", true);
+        yield return new WaitForSeconds(1);
+        GameObject.FindGameObjectWithTag("UI").GetComponent<UIController>().TriggerDeath();
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene("MainMenu");
     }
 }

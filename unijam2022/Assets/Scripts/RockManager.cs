@@ -9,8 +9,12 @@ public class RockManager : MonoBehaviour
     [SerializeField] private float lifetime = 2f;
     [SerializeField] private ResourcesType resourceType;
     private Vector2Int coordinates;
+    private float startLifeTime;
 
+    [Header("Particles")]
     [SerializeField] private GameObject particles;
+    [SerializeField] private GameObject particlesNearDeath;
+    private bool nearDeath;
 
     private void Awake()
     {
@@ -18,14 +22,35 @@ public class RockManager : MonoBehaviour
         {
             particles.SetActive(false);
         }
+        if (particlesNearDeath != null)
+        {
+            particlesNearDeath.SetActive(false);
+        }
         breakingSound = gameObject.GetComponent<AudioSource>();
+        nearDeath = false;
+        startLifeTime = lifetime;
     }
 
     void HitByRay()
     {
-        if (particles != null)
+        if (nearDeath)
         {
-            particles.SetActive(true);
+            if (particlesNearDeath != null)
+            {
+                particlesNearDeath.SetActive(true);
+                particles.SetActive(false);
+            }
+        }
+        else
+        {
+            if (particles != null)
+            {
+                particles.SetActive(true);
+            }
+        }
+        if (lifetime <= startLifeTime / 3f)
+        {
+            nearDeath = true;
         }
         if (resourceType != ResourcesType.Unbreakable)
         {
@@ -45,6 +70,10 @@ public class RockManager : MonoBehaviour
 
     void NoLongerHit()
     {
+        if (particlesNearDeath != null)
+        {
+            particlesNearDeath.SetActive(false);
+        }
         if (particles != null)
         {
             particles.SetActive(false);
