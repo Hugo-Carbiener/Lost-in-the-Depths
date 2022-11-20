@@ -25,7 +25,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject EscapeMenuUI;
     [SerializeField] private GameObject CraftMenuUI;
 
-    [SerializeField] private AudioSource audio;
+    [SerializeField] private AudioSource uiAudio;
 
     [SerializeField] private Canvas deathAnimation;
     [SerializeField] private Canvas victoryAnimation;
@@ -35,10 +35,6 @@ public class UIController : MonoBehaviour
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         oxygen = player.GetComponent<OxygenModuleController>();
-        if (audio == null)
-        {
-            audio = gameObject.GetComponentInChildren<AudioSource>();
-        }
     }
 
     private void Update()
@@ -46,7 +42,7 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0;
-            audio.Play();
+            uiAudio.Play();
             EscapeMenuUI.SetActive(true);
         }
     }
@@ -66,19 +62,20 @@ public class UIController : MonoBehaviour
     public void OnResumeEscapeMenu()
     {
         Time.timeScale = 1;
-        audio.Play();
+        uiAudio.Play();
         EscapeMenuUI.SetActive(false);
     }
 
     public void OnResumeCraftMenu()
     {
         Time.timeScale = 1;
+        uiAudio.Play();
         CraftMenuUI.SetActive(false);
     }
 
     public void OnBackToMainMenu()
     {
-        audio.Play();
+        uiAudio.Play();
         SceneManager.LoadSceneAsync("MainMenu");
     }
 
