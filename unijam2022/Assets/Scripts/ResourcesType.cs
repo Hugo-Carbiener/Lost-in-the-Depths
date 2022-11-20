@@ -5,5 +5,6 @@ public enum ResourcesType
     Coal,
     Gold,
     Diamond,
+    FinalOre,
     Pylons
 }

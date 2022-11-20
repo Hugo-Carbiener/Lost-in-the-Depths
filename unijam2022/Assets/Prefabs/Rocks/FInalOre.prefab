@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakingSound: {fileID: 0}
-  resourceType: 4
+  resourceType: 5
   particles: {fileID: 965504683306803473}
   particlesNearDeath: {fileID: 8049809302914968608}
 --- !u!82 &3872551033226062249
@@ -174,7 +174,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7750307116674307088, guid: 4a670975a36296c448da532613fe73d3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7750307116674307091, guid: 4a670975a36296c448da532613fe73d3, type: 3}
       propertyPath: m_RootOrder
@@ -289,7 +289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8884524890758575338, guid: 25ce00e2ca1d45f48ad25d6563b2ed19, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ce00e2ca1d45f48ad25d6563b2ed19, type: 3}
@@ -364,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5c5abaf589a674341a65052ea1453cab, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5c5abaf589a674341a65052ea1453cab, type: 3}
       propertyPath: m_TagString
