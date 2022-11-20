@@ -246,7 +246,7 @@ public class TilemapGeneration : MonoBehaviour
         {
             // for each ore, calculate y position with a gaussian 
             int oreVersion = Random.Range(0, oreTiles.Count);
-            int yPos = layerHeight + (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
+            int yPos = (int)Utils.RandomGaussian(layerHeight * oreVersion - oreApparitionRangeOutOfLayer, layerHeight * (oreVersion + 1) + oreApparitionRangeOutOfLayer);
             int xPos = Random.Range(0, mapWidth);
 
             // ensure coordinates are within bounds
