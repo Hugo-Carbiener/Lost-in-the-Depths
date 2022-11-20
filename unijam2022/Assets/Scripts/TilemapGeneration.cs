@@ -159,7 +159,7 @@ public class TilemapGeneration : MonoBehaviour
         {
             for (int x = 0; x < mapWidth; x++)
             {
-                print("add a bg tile");
+                //print("add a bg tile");
                 GameObject backgroundToPlace = Instantiate(rockDictionary[tilemapArray[x, y]], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, backgroundBlocContainer);
                 backgroundToPlace.SetActive(true);
             }
@@ -450,7 +450,7 @@ public class TilemapGeneration : MonoBehaviour
     private void PaintRock(int x, int y)
     {
         int value = tilemapArray[x, y];
-        print("paint bloc " + x + ", " + y + " with value " + value);
+        //print("paint bloc " + x + ", " + y + " with value " + value);
         GameObject currentlyPlacedRock = GetPlacedRock(x, y);
         if (currentlyPlacedRock != null)
         {
