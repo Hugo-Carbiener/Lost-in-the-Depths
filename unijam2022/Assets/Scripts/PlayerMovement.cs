@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField] private GameObject mesh;
+    [SerializeField] private GroundDetector gdDetector;
     private Animator animator;
     private AudioSource laserSound;
     [SerializeField] private AudioSource walkingGrassSound;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         animator = mesh.GetComponent<Animator>();
         rb = gameObject.GetComponent<Rigidbody>();
+        gdDetector = GetComponentInChildren<GroundDetector>();
         laserSound = gameObject.GetComponent<AudioSource>();
         jumpForce = Mathf.Sqrt(jumpHeight * -2 * Physics.gravity.y);
     }
@@ -39,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        isGrounded = gdDetector.isGrounded;
+
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         if(Input.GetAxis("Horizontal") < 0)
@@ -147,7 +151,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
-            isGrounded = true;
             animator.SetBool("IsFalling", false);
 
             if (Input.GetAxis("Horizontal") != 0 && collision.gameObject.CompareTag("Grass") && isGrounded == true)
@@ -173,7 +176,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
-            isGrounded = false;
             animator.SetBool("IsFalling", true);
             walkingGrassSound.Stop();
             walkingRockSound.Stop();
