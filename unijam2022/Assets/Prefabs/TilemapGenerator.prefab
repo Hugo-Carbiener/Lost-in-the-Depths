@@ -61,7 +61,7 @@ MonoBehaviour:
   rockTile: {fileID: 5862150834925794803, guid: 181cbde1a890b234c8e0a050798ef286, type: 3}
   oreTiles:
   - {fileID: 5862150834925794803, guid: 48bcd3a035d6a704da64bbc410a7e9f1, type: 3}
-  - {fileID: 5862150834925794803, guid: b4190ad5b72965b4384bfab7fc5c5a23, type: 3}
+  - {fileID: 5862150834925794803, guid: a4f60cdcf25bdf64dbfcccda923b3607, type: 3}
   - {fileID: 5862150834925794803, guid: 688f7a7491fcaa64ea10811c028c3f2e, type: 3}
   finalOreTile: {fileID: 5862150834925794803, guid: 96cc2e9f5b7db8d409c9bd93b317a43f, type: 3}
   unbreakableTile: {fileID: 5862150834925794803, guid: 0ae1eb8685c1d8a499f3c63a8fbd78a8, type: 3}
