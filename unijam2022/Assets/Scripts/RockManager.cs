@@ -38,7 +38,8 @@ public class RockManager : MonoBehaviour
             {
                 PlayerManager._instance.AddToResourcesInventory(resourceType);
                 lifetime = 0;
-                TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
+                //TilemapGeneration.Instance.RemoveRock(coordinates.x, coordinates.y);
+                gameObject.SetActive(false);
             }
         }
     }

@@ -20,6 +20,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coalNumber;
     [SerializeField] private TextMeshProUGUI goldNumber;
     [SerializeField] private TextMeshProUGUI diamondNumber;
+    [SerializeField] private TextMeshProUGUI pylonNumber;
 
     [SerializeField] private GameObject EscapeMenuUI;
     [SerializeField] private GameObject CraftMenuUI;
@@ -49,6 +50,7 @@ public class UIController : MonoBehaviour
         coalNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Coal].ToString();
         goldNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Gold].ToString();
         diamondNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Diamond].ToString();
+        pylonNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Pylons].ToString();
     }
 
     public void OnResumeEscapeMenu()
