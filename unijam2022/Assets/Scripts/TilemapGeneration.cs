@@ -137,17 +137,17 @@ public class TilemapGeneration : MonoBehaviour
         GenerateBaseTilemap();
 
         GenerateBackground();
-        GenerateOres();
+        //GenerateOres();
 
         GenerateEntrance();
-        GenerateGrass();
+        //GenerateGrass();
 
         GenerateElevator();
-        GenerateFinalCave();
+        //GenerateFinalCave();
 
         PaintTilemap();
         
-        GenerateBorders();   
+        //GenerateBorders();   
         GenerateFogOfWar();
     }
 
@@ -482,24 +482,33 @@ public class TilemapGeneration : MonoBehaviour
             Destroy(currentlyPlacedRock);
         }
 
-        // we instantiate a block, store its coordinates in RockManager for later use and set it active
-        if (value != 0)
+
+        try
         {
-            if (!rockDictionary.ContainsKey(value))
+            // we instantiate a block, store its coordinates in RockManager for later use and set it active
+            if (value != 0)
             {
-                value = 1;
+                if (!rockDictionary.ContainsKey(value))
+                {
+                    value = 1;
+                }
+
+                GameObject rockToPlace = Instantiate(rockDictionary[value], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
+                rockToPlace.GetComponent<RockManager>().SetCoordinates(new Vector2Int(x, y));
+                rockToPlace.SetActive(true);
+
+                if (value > 0)
+                {
+                    rockToPlace.GetComponent<RockTextureManager>().SetTexture(value % 10);
+
+                }
+
+                placedRockArray[x, y] = rockToPlace;
             }
-            GameObject rockToPlace = Instantiate(rockDictionary[value], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
+        } catch {
+            GameObject rockToPlace = Instantiate(rockDictionary[1], grid.CellToWorld(new Vector3Int(x, -y, 0)), Quaternion.identity, blocContainer);
             rockToPlace.GetComponent<RockManager>().SetCoordinates(new Vector2Int(x, y));
             rockToPlace.SetActive(true);
-            
-            if (value > 0)
-            {
-                rockToPlace.GetComponent<RockTextureManager>().SetTexture(value % 10);
-
-            }
-            
-            placedRockArray[x, y] = rockToPlace;
         }
     }
 
