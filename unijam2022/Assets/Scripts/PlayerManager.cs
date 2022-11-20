@@ -14,6 +14,9 @@ public class PlayerManager : MonoBehaviour
         PlayerManager._instance = this;
         resourcesInventory = new();
         resourcesInventory.Add(ResourcesType.Pylons, 3);
+        resourcesInventory.Add(ResourcesType.Coal, 0);
+        resourcesInventory.Add(ResourcesType.Gold, 0);
+        resourcesInventory.Add(ResourcesType.Diamond, 0);
     }
 
     public void AddToResourcesInventory(ResourcesType resource)

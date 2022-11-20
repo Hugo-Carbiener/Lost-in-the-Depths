@@ -22,6 +22,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI diamondNumber;
 
     [SerializeField] private GameObject EscapeMenuUI;
+    [SerializeField] private GameObject CraftMenuUI;
 
     private void Start()
     {
@@ -45,24 +46,21 @@ public class UIController : MonoBehaviour
         oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s"; //uodates the oxygenRate text
         oxygenBar.value = oxygen.curOxygen/oxygen.maxOxygen;
         oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s";
-        if (PlayerManager._instance.resourcesInventory.ContainsKey(ResourcesType.Coal))
-        {
-            coalNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Coal].ToString();
-        }
-        if (PlayerManager._instance.resourcesInventory.ContainsKey(ResourcesType.Gold))
-        {
-            goldNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Gold].ToString();
-        }
-        if (PlayerManager._instance.resourcesInventory.ContainsKey(ResourcesType.Diamond))
-        {
-            diamondNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Diamond].ToString();
-        }
+        coalNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Coal].ToString();
+        goldNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Gold].ToString();
+        diamondNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Diamond].ToString();
     }
 
-    public void OnResume()
+    public void OnResumeEscapeMenu()
     {
         Time.timeScale = 1;
         EscapeMenuUI.SetActive(false);
+    }
+
+    public void OnResumeCraftMenu()
+    {
+        Time.timeScale = 1;
+        CraftMenuUI.SetActive(false);
     }
 
     public void OnBackToMainMenu()
