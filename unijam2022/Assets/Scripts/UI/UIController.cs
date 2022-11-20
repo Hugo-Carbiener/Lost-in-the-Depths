@@ -23,11 +23,17 @@ public class UIController : MonoBehaviour
 
     [SerializeField] private GameObject EscapeMenuUI;
 
+    [SerializeField] private AudioSource audio;
+
     private void Start()
     {
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         oxygen = player.GetComponent<OxygenModuleController>();
+        if (audio == null)
+        {
+            audio = gameObject.GetComponentInChildren<AudioSource>();
+        }
     }
 
     private void Update()
@@ -35,6 +41,7 @@ public class UIController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Time.timeScale = 0;
+            audio.Play();
             EscapeMenuUI.SetActive(true);
         }
     }
@@ -62,11 +69,13 @@ public class UIController : MonoBehaviour
     public void OnResume()
     {
         Time.timeScale = 1;
+        audio.Play();
         EscapeMenuUI.SetActive(false);
     }
 
     public void OnBackToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        audio.Play();
+        SceneManager.LoadSceneAsync("MainMenu");
     }
 }
