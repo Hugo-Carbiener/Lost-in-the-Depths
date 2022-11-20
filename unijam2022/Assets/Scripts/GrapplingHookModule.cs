@@ -12,10 +12,16 @@ public class GrapplingHookModule : MonoBehaviour
     private Vector3 forwardVector;
     private Vector3 grapplePoint;
     [SerializeField] private float maxDistance;
+
+    //joint variables :
     private SpringJoint joint;
     [SerializeField] private float spring, damper, massScale, jointMinDistance, jointMaxDistance;
+    
+    //mesh objects :
     [SerializeField] private GameObject grapplingHook;
     private GameObject grappling;
+
+    [SerializeField] private AudioSource audio;
 
     private void Update()
     {
@@ -36,6 +42,7 @@ public class GrapplingHookModule : MonoBehaviour
     private void StartGrapple()
     {
         Debug.Log("Start grapple");
+        audio.Play();
         RaycastHit hit;
         line.positionCount = 2;
         forwardVector = Input.mousePosition - new Vector3(Screen.width / 2, Screen.height / 2, 0);
