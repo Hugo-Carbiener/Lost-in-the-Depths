@@ -51,8 +51,6 @@ public class UIController : MonoBehaviour
     {
         oxygenBar.value = oxygen.curOxygen/oxygen.maxOxygen; //updates the oxygenBar
         oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s"; //uodates the oxygenRate text
-        oxygenBar.value = oxygen.curOxygen/oxygen.maxOxygen;
-        oxygenRate.text = oxygenNetwork.curOxygenRate.ToString() + " o/s";
         coalNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Coal].ToString();
         goldNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Gold].ToString();
         diamondNumber.text = PlayerManager._instance.resourcesInventory[ResourcesType.Diamond].ToString();

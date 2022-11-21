@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private Canvas loadingScreen;
-    [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TextMeshProUGUI loadingText;
+    [SerializeField] private string[] loadingTexts;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class MainMenuController : MonoBehaviour
     {
         Time.timeScale = 1;
         loadingScreen.gameObject.SetActive(true);
+        loadingText.text = loadingTexts[Random.Range(0,loadingTexts.Length-1)];
         AsyncOperation loadingLevel = SceneManager.LoadSceneAsync("MVP");
         while (!loadingLevel.isDone)
         {
