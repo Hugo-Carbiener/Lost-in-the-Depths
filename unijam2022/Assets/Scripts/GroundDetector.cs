@@ -13,6 +13,7 @@ public class GroundDetector : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+        Debug.Log("JUMP FIX : GDECTOR : STAY called");
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = true;
@@ -21,6 +22,7 @@ public class GroundDetector : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        Debug.Log("JUMP FIX : GDECTOR : EXIT called");
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
         {
             isGrounded = false;

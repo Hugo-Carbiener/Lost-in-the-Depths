@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         isGrounded = gdDetector.isGrounded;
-
+        Debug.Log("JUMP FIX : PLMOV : "+isGrounded);
         // Horizontal movement
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, 0);
         if(Input.GetAxis("Horizontal") < 0)
@@ -150,7 +150,6 @@ public class PlayerMovement : MonoBehaviour
     }*/
 
     //collision check => setting up Falling State for animation + play sound
-
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.CompareTag("Grass") || collision.gameObject.CompareTag("Rock"))
