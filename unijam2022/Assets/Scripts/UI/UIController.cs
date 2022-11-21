@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldNumber;
     [SerializeField] private TextMeshProUGUI diamondNumber;
     [SerializeField] private TextMeshProUGUI pylonNumber;
+    [SerializeField] private TextMeshProUGUI warningText;
 
     [SerializeField] private GameObject EscapeMenuUI;
     [SerializeField] private GameObject CraftMenuUI;
@@ -35,6 +36,7 @@ public class UIController : MonoBehaviour
         oxygenNetwork = GameObject.FindGameObjectWithTag("OxygenNetwork").GetComponent<OxygenNetwork>();
         player = GameObject.FindGameObjectsWithTag("Player")[0];
         oxygen = player.GetComponent<OxygenModuleController>();
+        warningText.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -87,5 +89,14 @@ public class UIController : MonoBehaviour
     {
         victoryAnimation.gameObject.SetActive(true);
         victoryAnimation.GetComponent<Animator>().Play("Victory");
+    }
+
+    public IEnumerator FailedToPosePylone()
+    {
+        warningText.gameObject.SetActive(false);
+        StopAllCoroutines();
+        warningText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        warningText.gameObject.SetActive(false);
     }
 }

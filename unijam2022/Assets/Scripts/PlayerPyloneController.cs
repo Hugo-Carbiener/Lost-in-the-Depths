@@ -39,6 +39,7 @@ public class PlayerPyloneController : MonoBehaviour
             else
             {
                 if (!pyloneNotCreatedSound.isPlaying) pyloneNotCreatedSound.Play();
+                StartCoroutine(GameObject.FindGameObjectWithTag("UI").GetComponent<UIController>().FailedToPosePylone());
             }
         }
     }
