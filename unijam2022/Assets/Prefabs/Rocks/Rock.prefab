@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec44ff54ac23c64784e623a569d4a5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  breakingSound: {fileID: 0}
+  breakingSound: {fileID: 4158977686110377970}
   resourceType: 1
   particles: {fileID: 156056104311381587}
   particlesNearDeath: {fileID: 1196122280832093516}
