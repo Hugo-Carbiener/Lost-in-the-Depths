@@ -66,13 +66,13 @@ public class OxygenNetwork : MonoBehaviour
                     Debug.Log("PLAYER ENTERS NETWORK");
                     curPylone = pyl;
                     controller.isActivePylone = true;
-                    if (pumpOxygenRate - rateDecrease <= 0) //We change the cur oxygenRate depending on the concerned pylone
+                    if (pumpOxygenRate - (pylonesNetworkDict.Count -rateDecrease) <= 0) //We change the cur oxygenRate depending on the concerned pylone
                     {
                         curOxygenRate = 0;
                     }
                     else
                     {
-                        curOxygenRate = pumpOxygenRate - rateDecrease;
+                        curOxygenRate = pumpOxygenRate - (pylonesNetworkDict.Count - rateDecrease);
                     }
                     StartOxygenFlow();
                     return;
