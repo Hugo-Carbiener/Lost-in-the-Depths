@@ -25,6 +25,8 @@ public class CraftManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI nbDiamondRequiredForLaser;
     [SerializeField] private Button upgradeLaserButton;
 
+    [SerializeField] private AudioSource uiSound;
+
     private void Awake()
     {
         nbCoalRequiredForPylons.text = coalRequiredForPylons.ToString();
@@ -37,7 +39,7 @@ public class CraftManager : MonoBehaviour
 
     private void Update()
     {
-            if (PlayerManager._instance.resourcesInventory[ResourcesType.Coal] >= coalRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Gold] >= goldRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] >= diamondRequiredForPylons && PlayerManager._instance.GetLaserLevel() < PlayerManager._instance.GetMaxLaserLevel())
+            if (PlayerManager._instance.resourcesInventory[ResourcesType.Coal] >= coalRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Gold] >= goldRequiredForPylons && PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] >= diamondRequiredForPylons)
             {
                 craftPylonsButton.interactable = true;
             }
@@ -45,7 +47,7 @@ public class CraftManager : MonoBehaviour
             {
                 craftPylonsButton.interactable = false;
             }
-            if (PlayerManager._instance.resourcesInventory[ResourcesType.Coal] >= coalRequiredForLaser && PlayerManager._instance.resourcesInventory[ResourcesType.Gold] >= goldRequiredForLaser && PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] >= diamondRequiredForLaser)
+            if (PlayerManager._instance.GetLaserLevel() < PlayerManager._instance.GetMaxLaserLevel() && PlayerManager._instance.resourcesInventory[ResourcesType.Coal] >= coalRequiredForLaser && PlayerManager._instance.resourcesInventory[ResourcesType.Gold] >= goldRequiredForLaser && PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] >= diamondRequiredForLaser)
             {
                 upgradeLaserButton.interactable = true;
             }
@@ -57,6 +59,7 @@ public class CraftManager : MonoBehaviour
 
     public void CraftPylons()
     {
+        uiSound.Play();
         PlayerManager._instance.resourcesInventory[ResourcesType.Coal] -= coalRequiredForPylons;
         PlayerManager._instance.resourcesInventory[ResourcesType.Gold] -= goldRequiredForPylons;
         PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] -= diamondRequiredForPylons;
@@ -66,6 +69,7 @@ public class CraftManager : MonoBehaviour
 
     public void UpgradeLaser()
     {
+        uiSound.Play();
         PlayerManager._instance.resourcesInventory[ResourcesType.Coal] -= coalRequiredForLaser;
         PlayerManager._instance.resourcesInventory[ResourcesType.Gold] -= goldRequiredForLaser;
         PlayerManager._instance.resourcesInventory[ResourcesType.Diamond] -= diamondRequiredForLaser;
