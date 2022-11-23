@@ -55,3 +55,10 @@ Simon Bastianelli
 
 **Sound designer**:  
 [Chloé Hennequin](https://skizaat.itch.io/) - [Portfolio](https://skizaat.github.io/)  
+  
+ ---
+  
+<p align="center">
+<img src="https://cdn.discordapp.com/attachments/1043273857328492555/1043892094990819429/BG_F1.png" style="padding-top:20px;padding-bottom:20px">
+<p/>
+  
